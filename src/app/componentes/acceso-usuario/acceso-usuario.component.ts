@@ -19,5 +19,8 @@ export class AccesoUsuarioComponent implements OnInit {
 
     })
   }
+  alerta() {
+    alert("hola");
+  }
 
 }
