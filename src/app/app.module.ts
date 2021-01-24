@@ -3,15 +3,26 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AccesoUsuarioComponent } from './componentes/acceso-usuario/acceso-usuario.component';
+import { LoginUsuarioComponent } from './componentes/login-usuario/login-usuario.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AccesoUsuarioComponent,
+    LoginUsuarioComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule,
   ],
+  exports:
+    [
+      AccesoUsuarioComponent,
+      LoginUsuarioComponent
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })
