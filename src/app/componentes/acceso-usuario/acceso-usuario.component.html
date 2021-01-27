@@ -144,8 +144,11 @@
             </div>
             <div class="modal-body">
                 <div class="form-floating mt-3 mb-0">
-                    <re-captcha (resolved)="resolved($event)" (error)="onError($event)" errorMode="handled"
-                        siteKey="6LcOuyYTAAAAAHTjFuqhA52fmfJ_j5iFk5PsfXaU"></re-captcha>
+                    <div style="background-color: #FF5733; padding: 15%;">
+                        <re-captcha (resolved)="resolved($event)" (error)="onError($event)" errorMode="handled"
+                            siteKey="6LcOuyYTAAAAAHTjFuqhA52fmfJ_j5iFk5PsfXaU"></re-captcha>
+                    </div>
+
                     <!-- <form action="?" method="POST" style="background-color: #FF5733; padding: 15%;">
                         <div id="recaptcha" class="g-recaptcha" data-sitekey="6LeU0DkaAAAAAMEngXot_2ZLYpNLuaMo_AaFTZtF 
                         "></div>
@@ -166,11 +169,12 @@
             </div>
         </div>
     </div>
-    <footer class="bg-light text-center text-lg-start">
-        <!-- Copyright -->
-        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-            © 2021 Copyright:
-            <a class="text-dark" href="http://www.utags.edu.mx/">UNIVERSIDAD TÉCNOLOGICA DE AGUASCALIENTES/NAVYD</a>
-        </div>
-        <!-- Copyright -->
-    </footer>
+</div>
+<footer class="bg-light text-center text-lg-start">
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        © 2021 Copyright:
+        <a class="text-dark" href="http://www.utags.edu.mx/">UNIVERSIDAD TÉCNOLOGICA DE AGUASCALIENTES/NAVYD</a>
+    </div>
+    <!-- Copyright -->
+</footer>
