@@ -1,5 +1,11 @@
 export class UsuarioModel {
-    _id: String;
-    strNombre: String;
-    blnActivo: Boolean = true;
+    first_name: String;
+    middle_name: String;
+    last_name: String;
+    phone_number: Number;
+    city: String;
+    state: String;
+    email: String;
+    password: String;
+    password_confirmation: String;
 }

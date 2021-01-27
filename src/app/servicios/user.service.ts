@@ -5,10 +5,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class UserService {
 
-  url = 'https://api.weatherbit.io/v2.0/alerts?lat=39.75895&lon=-84.19161&key=d5665b7e5dad43bd958140e97c7ce5da';
+  url = 'https://webpro180369.herokuapp.com/storeUtags/user/create_user';
+  urlWeb = "http://35.167.62.109/storeutags/security/create_account";
+  urlLocal = "http://localhost:3000/storeUtags/user/create_user";
   constructor(private http: HttpClient) { }
 
-  getClima() {
-    return this.http.get(`${this.url}`).toPromise();
+  postUsuario(usuario) {
+
+    return this.http.post(this.url, usuario).toPromise();
+
   }
+
 }

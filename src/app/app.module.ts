@@ -6,6 +6,7 @@ import { AppComponent } from './app.component';
 import { AccesoUsuarioComponent } from './componentes/acceso-usuario/acceso-usuario.component';
 import { LoginUsuarioComponent } from './componentes/login-usuario/login-usuario.component';
 import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,6 +18,7 @@ import { HttpClientModule } from '@angular/common/http';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
+    FormsModule
   ],
   exports:
     [
