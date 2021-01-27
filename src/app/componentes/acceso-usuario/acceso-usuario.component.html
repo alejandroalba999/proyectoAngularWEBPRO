@@ -125,10 +125,6 @@
 
             </div>
 
-
-
-
-
             <div class="d-grid gap-2 mt-3">
                 <button [disabled]="forma.invalid" type="button" class="btn btn-outline-success" data-bs-toggle="modal"
                     data-bs-target="#exampleModal">Guardar</button>
@@ -138,7 +134,6 @@
 
         </div>
     </form>
-
 </div>
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
@@ -149,25 +144,33 @@
             </div>
             <div class="modal-body">
                 <div class="form-floating mt-3 mb-0">
-                    <form action="?" method="POST" style="background-color: #FF5733; padding: 15%;">
-                        <div class="g-recaptcha" data-sitekey="6LeU0DkaAAAAAMEngXot_2ZLYpNLuaMo_AaFTZtF
+                    <re-captcha (resolved)="resolved($event)" (error)="onError($event)" errorMode="handled"
+                        siteKey="6LcOuyYTAAAAAHTjFuqhA52fmfJ_j5iFk5PsfXaU"></re-captcha>
+                    <!-- <form action="?" method="POST" style="background-color: #FF5733; padding: 15%;">
+                        <div id="recaptcha" class="g-recaptcha" data-sitekey="6LeU0DkaAAAAAMEngXot_2ZLYpNLuaMo_AaFTZtF 
                         "></div>
                         <br />
-                    </form>
+                    </form> -->
                 </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" (click)="POST()">Save changes</button>
+                <div class="text-center" *ngIf="this.spinner">
+                    <div class="spinner-border" role="status">
+                        <span class="sr-only"></span>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" id="button" [disabled]="!this.captcha" class="btn btn-primary"
+                        (click)="POST()">Registrar</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
-<footer class="bg-light text-center text-lg-start">
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-        © 2021 Copyright:
-        <a class="text-dark" href="http://www.utags.edu.mx/">UNIVERSIDAD TÉCNOLOGICA DE AGUASCALIENTES/NAVYD</a>
-    </div>
-    <!-- Copyright -->
-</footer>
+    <footer class="bg-light text-center text-lg-start">
+        <!-- Copyright -->
+        <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+            © 2021 Copyright:
+            <a class="text-dark" href="http://www.utags.edu.mx/">UNIVERSIDAD TÉCNOLOGICA DE AGUASCALIENTES/NAVYD</a>
+        </div>
+        <!-- Copyright -->
+    </footer>

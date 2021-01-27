@@ -3,7 +3,8 @@ import { UserService } from '../../servicios/user.service';
 import { UsuarioModel } from '../../modelos/usuario.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
+import { RecaptchaErrorParameters } from "ng-recaptcha";
 
 const Toast = Swal.mixin({
   toast: true,
@@ -23,8 +24,8 @@ const Toast = Swal.mixin({
 })
 
 export class AccesoUsuarioComponent implements OnInit {
-
-
+  captcha: Boolean = false;
+  spinner: Boolean = false;
   UsuarioModel: UsuarioModel = new UsuarioModel();
 
   constructor(private _service: UserService) { }
@@ -33,7 +34,20 @@ export class AccesoUsuarioComponent implements OnInit {
 
   }
   async POST() {
+    this.spinner = true;
+    this._service.getRecaptcha().then((data: any) => {
+      console.log(data);
+      console.log("HERE");
+
+
+    }).catch((err: HttpErrorResponse) => {
+      console.log(err);
+      console.log("ERROR");
+
+
+    })
     this._service.postUsuario(this.UsuarioModel).then((data: any) => {
+      this.spinner = false;
       Swal.fire({
         icon: "success",
         title: `${this.UsuarioModel.first_name} tu cuenta se agrego con exito`,
@@ -44,6 +58,7 @@ export class AccesoUsuarioComponent implements OnInit {
 
 
     }).catch((err: HttpErrorResponse) => {
+      this.spinner = false;
       console.log(err.error.info);
       Swal.fire({
         icon: "error",
@@ -55,5 +70,14 @@ export class AccesoUsuarioComponent implements OnInit {
   }
   limpiar(forma: NgForm) {
     forma.resetForm();
+  }
+  public resolved(captchaResponse: string): void {
+    console.log(`Resolved captcha with response: ${captchaResponse}`);
+    this.captcha = true;
+  }
+
+  public onError(errorDetails: RecaptchaErrorParameters): void {
+    console.log(`reCAPTCHA error encountered; details:`, errorDetails);
+    this.captcha = false;
   }
 }

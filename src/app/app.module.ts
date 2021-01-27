@@ -7,6 +7,7 @@ import { AccesoUsuarioComponent } from './componentes/acceso-usuario/acceso-usua
 import { LoginUsuarioComponent } from './componentes/login-usuario/login-usuario.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { RecaptchaModule } from 'ng-recaptcha';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    RecaptchaModule
   ],
   exports:
     [
