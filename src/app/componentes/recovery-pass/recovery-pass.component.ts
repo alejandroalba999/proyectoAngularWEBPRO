@@ -1,11 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { UserService } from '../../servicios/user.service';
-import { CorreoModel, UsuarioModel } from '../../modelos/usuario.model';
+import { CorreoModel, PinModel, UsuarioModel } from '../../modelos/usuario.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { RecaptchaErrorParameters } from "ng-recaptcha";
-
 
 const Toast = Swal.mixin({
   toast: true,
@@ -19,35 +18,51 @@ const Toast = Swal.mixin({
   }
 })
 @Component({
-  selector: 'app-login-usuario',
-  templateUrl: './login-usuario.component.html',
-  styleUrls: ['./login-usuario.component.css']
+  selector: 'app-recovery-pass',
+  templateUrl: './recovery-pass.component.html',
+  styleUrls: ['./recovery-pass.component.css']
 })
-export class LoginUsuarioComponent implements OnInit {
+export class RecoveryPassComponent implements OnInit {
 
   captcha: Boolean = false;
   spinner: Boolean = false;
-  UsuarioModel: UsuarioModel = new UsuarioModel();
-  CorreoModel: CorreoModel = new CorreoModel();
 
+  PinModel: PinModel = new PinModel();
+  CorreoModel: CorreoModel = new CorreoModel();
+  correo = localStorage.getItem("emailUser");
   constructor(private _service: UserService) { }
 
   ngOnInit(): void {
+  }
+  ReenviarPin() {
+    if (localStorage.getItem("emailUser")) {
+      this.CorreoModel.email = this.correo;
+      this._service.recoveryPassword(this.CorreoModel).then((res: any) => {
+        console.log(res);
 
-    if (localStorage.getItem("ReenviarPinContraseña") == "true") {
-      document.getElementById("openModal").click();
-      localStorage.removeItem("ReenviarPinContraseña");
+        Swal.fire({
+          icon: "success",
+          title: "Por favor revise su correo electronico",
+        });
+      }).catch((err: HttpErrorResponse) => {
+
+      });
+    } else {
+      localStorage.setItem("ReenviarPinContraseña", "true");
+      location.href = "/login";
     }
+
   }
 
   limpiar(forma: NgForm) {
     forma.resetForm();
   }
-  async recoveryPass() {
-    this.spinner = true;
+  sendPIN() {
+    this.PinModel.email = this.correo;
+    console.log(this.PinModel);
 
-    await this._service.recoveryPassword(this.CorreoModel).then((res: any) => {
-
+    this._service.validateRecoveryCode(this.PinModel).then((res: any) => {
+      console.log(res);
       if (res.status == "error") {
         this.spinner = false;
         Swal.fire({
@@ -55,19 +70,17 @@ export class LoginUsuarioComponent implements OnInit {
           title: res.error_message,
         });
       } else if (res.status == "success") {
-        localStorage.setItem("emailUser", `${this.CorreoModel.email}`);
         this.spinner = false;
         Swal.fire({
           icon: "success",
-          title: "Por favor revise su correo electronico",
+          title: "Aqui va tu codigo Natanito",
         });
-        setTimeout(() => {
-          window.location.href = "/recovery_password";
-        }, 3000);
+
       }
+
     }).catch((err: HttpErrorResponse) => {
       console.log(err);
-      this.spinner = false;
+
     })
   }
 }

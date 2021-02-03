@@ -1,175 +1,200 @@
-<div style="padding-top: 8%; padding-right: 30%; padding-left: 30%; padding-bottom: 5%; background-color:#FF5733; ">
-    <form #forma="ngForm">
-        <div style="padding: 5%; background-color: rgba(255, 249, 247, 0.5); border-radius: 5%;">
-            <p class="fs-2">Registro</p>
-            <!-- Nombre -->
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput1" placeholder="name@example.com"
-                    [ngClass]="{'is-invalid': first_name.errors?.required && forma.controls['first_name'].touched }"
-                    name="first_name" [(ngModel)]="UsuarioModel.first_name" required #first_name="ngModel">
-                <label for="floatingInput">Nombre(s)</label>
-                <div class="invalid-feedback" *ngIf="first_name.errors?.required">
-                    <small>Es necesario ingresar un nombre.</small>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <!-- Apellido Materno -->
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="true" href="/accesoUsuario">Registro</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link " href="/login">Login</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <!-- body -->
+        <div
+            style="padding-top: 8%; padding-right: 30%; padding-left: 30%; padding-bottom: 5%; background-color:#FF5733; ">
+            <form #forma="ngForm">
+                <div style="padding: 5%; background-color: rgba(255, 249, 247, 0.5); border-radius: 5%;">
+                    <p class="fs-2">Registro</p>
+                    <!-- Nombre -->
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput2" placeholder="name@example.com"
-                            [ngClass]="{'is-invalid': middle_name.errors?.required && forma.controls['middle_name'].touched }"
-                            name="middle_name" [(ngModel)]="UsuarioModel.middle_name" required #middle_name="ngModel">
-                        <label for="floatingInput">Apellido Paterno</label>
-                        <div class="invalid-feedback" *ngIf="middle_name.errors?.required">
-                            <small>Es necesario ingresar un apellido paterno.</small>
+                        <input type="text" class="form-control" id="floatingInput1" placeholder="name@example.com"
+                            [ngClass]="{'is-invalid': first_name.errors?.required && forma.controls['first_name'].touched }"
+                            name="first_name" [(ngModel)]="UsuarioModel.first_name" required #first_name="ngModel">
+                        <label for="floatingInput">Nombre(s)</label>
+                        <div class="invalid-feedback" *ngIf="first_name.errors?.required">
+                            <small>Es necesario ingresar un nombre.</small>
                         </div>
                     </div>
-                </div>
-                <div class="col-6">
-                    <!-- Apellido Paterno -->
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput3" placeholder="name@example.com"
-                            [ngClass]="{'is-invalid': last_name.errors?.required && forma.controls['last_name'].touched }"
-                            name="last_name" [(ngModel)]="UsuarioModel.last_name" required #last_name="ngModel">
-                        <label for="floatingInput">Apellido Materno</label>
-                        <div class="invalid-feedback" *ngIf="last_name.errors?.required">
-                            <small>Es necesario ingresar un apellido materno.</small>
+                    <div class="row">
+                        <div class="col-6">
+                            <!-- Apellido Materno -->
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput2"
+                                    placeholder="name@example.com"
+                                    [ngClass]="{'is-invalid': middle_name.errors?.required && forma.controls['middle_name'].touched }"
+                                    name="middle_name" [(ngModel)]="UsuarioModel.middle_name" required
+                                    #middle_name="ngModel">
+                                <label for="floatingInput">Apellido Paterno</label>
+                                <div class="invalid-feedback" *ngIf="middle_name.errors?.required">
+                                    <small>Es necesario ingresar un apellido paterno.</small>
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <!-- Numero Telefonico -->
-            <div class="form-floating mb-3">
-                <input type="number" class="form-control" id="floatingInput4" placeholder="name@example.com"
-                    [ngClass]="{'is-invalid': phone_number.errors?.required && forma.controls['phone_number'].touched }"
-                    name="phone_number" [(ngModel)]="UsuarioModel.phone_number" required #phone_number="ngModel">
-                <label for="floatingInput">Numero Telefonico</label>
-                <div class="invalid-feedback" *ngIf="phone_number.errors?.required">
-                    <small>Es necesario ingresar un numero telefonico.</small>
-                </div>
-            </div>
-            <!-- Ciudad -->
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput5" placeholder="name@example.com"
-                            [ngClass]="{'is-invalid': city.errors?.required && forma.controls['city'].touched }"
-                            name="city" [(ngModel)]="UsuarioModel.city" required #city="ngModel">
-                        <label for="floatingInput">Ciudad</label>
-                        <div class="invalid-feedback" *ngIf="city.errors?.required">
-                            <small>Es necesario ingresar una ciudad.</small>
-                        </div>
-                    </div>
-                </div>
-                <!--Estado -->
-                <div class="col-6">
-                    <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="floatingInput6" placeholder="name@example.com"
-                            [ngClass]="{'is-invalid': state.errors?.required && forma.controls['state'].touched }"
-                            name="state" [(ngModel)]="UsuarioModel.state" required #state="ngModel">
-                        <label for="floatingInput">Estado</label>
-                        <div class="invalid-feedback" *ngIf="state.errors?.required">
-                            <small>Es necesario ingresar un estado.</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!-- Correo Electronico -->
-            <div class="form-floating mb-3">
-                <input type="text" class="form-control" id="floatingInput7"
-                    pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" type="email" class="form-control"
-                    placeholder="Correo Electrónico"
-                    [ngClass]="{'is-invalid': email.errors?.required && forma.controls['email'].touched }" name="email"
-                    [(ngModel)]="UsuarioModel.email" required #email="ngModel">
-                <label for="floatingInput">Correo Electronico</label>
-                <div class="invalid-feedback" *ngIf="email.errors?.required">
-                    <small>Es necesario ingresar un Correo Electrónico.</small>
-                </div>
-                <div class="bad-pattern" *ngIf="email.errors?.pattern">
-                    <small style="color: red;">El correo electrónico es inválido.</small>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-6">
-                    <div class="form-floating mb-3">
-                        <input pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" type="password"
-                            class="form-control" placeholder="Contraseña"
-                            [ngClass]="{'is-invalid': password.errors?.required && forma.controls['password'].touched }"
-                            name="password" [(ngModel)]="UsuarioModel.password" required #password="ngModel">
-                        <label for="floatingInput">Contraseña</label>
-                        <div class="invalid-feedback" *ngIf="password.errors?.required">
-                            <small>Es necesario ingresar una Contraseña.</small>
-                        </div>
-                        <div class="bad-pattern" *ngIf="password.errors?.pattern">
-                            <small style="color: red;">La contraseña es invalida</small>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-6">
-                    <div class="form-floating mb-3">
-                        <input [disabled]="password.errors?.required"
-                            pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" type="password" class="form-control"
-                            placeholder="Contraseña"
-                            [ngClass]="{'is-invalid': password_confirmation.errors?.required && forma.controls['password_confirmation'].touched }"
-                            name="password_confirmation" [(ngModel)]="UsuarioModel.password_confirmation" required
-                            #password_confirmation="ngModel">
-                        <label for="floatingInput">Repetir Contraseña</label>
-                        <div *ngIf="UsuarioModel.password != UsuarioModel.password_confirmation">
-                            <small style="color: red;">Las contraseñas no coinciden.</small>
+                        <div class="col-6">
+                            <!-- Apellido Paterno -->
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput3"
+                                    placeholder="name@example.com"
+                                    [ngClass]="{'is-invalid': last_name.errors?.required && forma.controls['last_name'].touched }"
+                                    name="last_name" [(ngModel)]="UsuarioModel.last_name" required #last_name="ngModel">
+                                <label for="floatingInput">Apellido Materno</label>
+                                <div class="invalid-feedback" *ngIf="last_name.errors?.required">
+                                    <small>Es necesario ingresar un apellido materno.</small>
+                                </div>
+                            </div>
                         </div>
                     </div>
 
+
+                    <!-- Numero Telefonico -->
+                    <div class="form-floating mb-3">
+                        <input type="number" class="form-control" id="floatingInput4" placeholder="name@example.com"
+                            [ngClass]="{'is-invalid': phone_number.errors?.required && forma.controls['phone_number'].touched }"
+                            name="phone_number" [(ngModel)]="UsuarioModel.phone_number" required
+                            #phone_number="ngModel">
+                        <label for="floatingInput">Numero Telefonico</label>
+                        <div class="invalid-feedback" *ngIf="phone_number.errors?.required">
+                            <small>Es necesario ingresar un numero telefonico.</small>
+                        </div>
+                    </div>
+                    <!-- Ciudad -->
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput5"
+                                    placeholder="name@example.com"
+                                    [ngClass]="{'is-invalid': city.errors?.required && forma.controls['city'].touched }"
+                                    name="city" [(ngModel)]="UsuarioModel.city" required #city="ngModel">
+                                <label for="floatingInput">Ciudad</label>
+                                <div class="invalid-feedback" *ngIf="city.errors?.required">
+                                    <small>Es necesario ingresar una ciudad.</small>
+                                </div>
+                            </div>
+                        </div>
+                        <!--Estado -->
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="floatingInput6"
+                                    placeholder="name@example.com"
+                                    [ngClass]="{'is-invalid': state.errors?.required && forma.controls['state'].touched }"
+                                    name="state" [(ngModel)]="UsuarioModel.state" required #state="ngModel">
+                                <label for="floatingInput">Estado</label>
+                                <div class="invalid-feedback" *ngIf="state.errors?.required">
+                                    <small>Es necesario ingresar un estado.</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Correo Electronico -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput7"
+                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" type="email" class="form-control"
+                            placeholder="Correo Electrónico"
+                            [ngClass]="{'is-invalid': email.errors?.required && forma.controls['email'].touched }"
+                            name="email" [(ngModel)]="UsuarioModel.email" required #email="ngModel">
+                        <label for="floatingInput">Correo Electronico</label>
+                        <div class="invalid-feedback" *ngIf="email.errors?.required">
+                            <small>Es necesario ingresar un Correo Electrónico.</small>
+                        </div>
+                        <div class="bad-pattern" *ngIf="email.errors?.pattern">
+                            <small style="color: red;">El correo electrónico es inválido.</small>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                <input pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" type="password"
+                                    class="form-control" placeholder="Contraseña"
+                                    [ngClass]="{'is-invalid': password.errors?.required && forma.controls['password'].touched }"
+                                    name="password" [(ngModel)]="UsuarioModel.password" required #password="ngModel">
+                                <label for="floatingInput">Contraseña</label>
+                                <div class="invalid-feedback" *ngIf="password.errors?.required">
+                                    <small>Es necesario ingresar una Contraseña.</small>
+                                </div>
+                                <div class="bad-pattern" *ngIf="password.errors?.pattern">
+                                    <small style="color: red;">La contraseña es invalida</small>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-floating mb-3">
+                                <input [disabled]="password.errors?.required"
+                                    pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" type="password"
+                                    class="form-control" placeholder="Contraseña"
+                                    [ngClass]="{'is-invalid': password_confirmation.errors?.required && forma.controls['password_confirmation'].touched }"
+                                    name="password_confirmation" [(ngModel)]="UsuarioModel.password_confirmation"
+                                    required #password_confirmation="ngModel">
+                                <label for="floatingInput">Repetir Contraseña</label>
+                                <div *ngIf="UsuarioModel.password != UsuarioModel.password_confirmation">
+                                    <small style="color: red;">Las contraseñas no coinciden.</small>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div class="d-grid gap-2 mt-3">
+                        <button [disabled]="forma.invalid" type="button" class="btn btn-outline-success"
+                            data-bs-toggle="modal" data-bs-target="#exampleModal">Guardar</button>
+                        <button type="button" class="btn btn-outline-danger" (click)="limpiar(forma)">Cancelar</button>
+                    </div>
+
+
                 </div>
-
-            </div>
-
-            <div class="d-grid gap-2 mt-3">
-                <button [disabled]="forma.invalid" type="button" class="btn btn-outline-success" data-bs-toggle="modal"
-                    data-bs-target="#exampleModal">Guardar</button>
-                <button type="button" class="btn btn-outline-danger" (click)="limpiar(forma)">Cancelar</button>
-            </div>
-
-
+            </form>
         </div>
-    </form>
-</div>
-<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Validar</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <div class="form-floating mt-3 mb-0">
-                    <div style="background-color: #FF5733; padding: 15%;">
-                        <re-captcha (resolved)="resolved($event)" (error)="onError($event)" errorMode="handled"
-                            siteKey="6LcOuyYTAAAAAHTjFuqhA52fmfJ_j5iFk5PsfXaU"></re-captcha>
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Validar</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
+                    <div class="modal-body">
+                        <div class="form-floating mt-3 mb-0">
+                            <div style="background-color: #FF5733; padding: 15%;">
+                                <re-captcha (resolved)="resolved($event)" (error)="onError($event)" errorMode="handled"
+                                    siteKey="6LcOuyYTAAAAAHTjFuqhA52fmfJ_j5iFk5PsfXaU"></re-captcha>
+                            </div>
 
-                    <!-- <form action="?" method="POST" style="background-color: #FF5733; padding: 15%;">
-                        <div id="recaptcha" class="g-recaptcha" data-sitekey="6LeU0DkaAAAAAMEngXot_2ZLYpNLuaMo_AaFTZtF 
-                        "></div>
-                        <br />
-                    </form> -->
-                </div>
-                <div class="text-center" *ngIf="this.spinner">
-                    <div class="spinner-border" role="status">
-                        <span class="sr-only"></span>
+                            <!-- <form action="?" method="POST" style="background-color: #FF5733; padding: 15%;">
+                            <div id="recaptcha" class="g-recaptcha" data-sitekey="6LeU0DkaAAAAAMEngXot_2ZLYpNLuaMo_AaFTZtF 
+                            "></div>
+                            <br />
+                        </form> -->
+                        </div>
+                        <div class="text-center" *ngIf="this.spinner">
+                            <div class="spinner-border" role="status">
+                                <span class="sr-only"></span>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" id="button" [disabled]="!this.captcha" class="btn btn-primary"
+                                (click)="POST()">Registrar</button>
+                        </div>
                     </div>
-                </div>
-
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="button" id="button" [disabled]="!this.captcha" class="btn btn-primary"
-                        (click)="POST()">Registrar</button>
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+
+
 <footer class="bg-light text-center text-lg-start">
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">

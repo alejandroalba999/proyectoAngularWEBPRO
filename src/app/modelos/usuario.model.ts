@@ -9,3 +9,12 @@ export class UsuarioModel {
     password: String;
     password_confirmation: String;
 }
+
+export class CorreoModel {
+    email: String;
+}
+
+export class PinModel {
+    email: String;
+    recovery_code: String;
+}

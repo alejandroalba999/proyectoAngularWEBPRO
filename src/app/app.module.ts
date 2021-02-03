@@ -8,12 +8,14 @@ import { LoginUsuarioComponent } from './componentes/login-usuario/login-usuario
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RecaptchaModule } from 'ng-recaptcha';
+import { RecoveryPassComponent } from './componentes/recovery-pass/recovery-pass.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AccesoUsuarioComponent,
-    LoginUsuarioComponent
+    LoginUsuarioComponent,
+    RecoveryPassComponent
   ],
   imports: [
     BrowserModule,

@@ -1,1 +1,140 @@
-<p>login-usuario works!</p>
+<div class="card text-center">
+    <div class="card-header">
+        <ul class="nav nav-tabs card-header-tabs">
+            <li class="nav-item">
+                <a class="nav-link " aria-current="true" href="/accesoUsuario">Registro</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="/login">Login</a>
+            </li>
+        </ul>
+    </div>
+    <div class="card-body">
+        <!-- body -->
+        <div
+            style="padding-top: 8%; padding-right: 30%; padding-left: 30%; padding-bottom: 5%; background-color:#FF5733; ">
+            <form #forma="ngForm">
+                <div style="padding: 5%; background-color: rgba(255, 249, 247, 0.5); border-radius: 5%;">
+                    <p class="fs-2">Login</p>
+                    <!-- Correo Electronico -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="form-control" id="floatingInput7"
+                            pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" type="email" class="form-control"
+                            placeholder="Correo Electrónico"
+                            [ngClass]="{'is-invalid': email.errors?.required && forma.controls['email'].touched }"
+                            name="email" [(ngModel)]="UsuarioModel.email" required #email="ngModel">
+                        <label for="floatingInput">Correo Electronico</label>
+                        <div class="invalid-feedback" *ngIf="email.errors?.required">
+                            <small>Es necesario ingresar un Correo Electrónico.</small>
+                        </div>
+                        <div class="bad-pattern" *ngIf="email.errors?.pattern">
+                            <small style="color: red;">El correo electrónico es inválido.</small>
+                        </div>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" type="password"
+                            class="form-control" placeholder="Contraseña"
+                            [ngClass]="{'is-invalid': password.errors?.required && forma.controls['password'].touched }"
+                            name="password" [(ngModel)]="UsuarioModel.password" required #password="ngModel">
+                        <label for="floatingInput">Contraseña</label>
+                        <div class="invalid-feedback" *ngIf="password.errors?.required">
+                            <small>Es necesario ingresar una Contraseña.</small>
+                        </div>
+                        <div class="bad-pattern" *ngIf="password.errors?.pattern">
+                            <small style="color: red;">La contraseña es invalida</small>
+                        </div>
+                    </div>
+
+
+
+
+                    <div class="d-grid gap-2 mt-3">
+                        <button [disabled]="forma.invalid" type="button" class="btn btn-outline-success"
+                            data-bs-toggle="modal" data-bs-target="#exampleModal">Guardar</button>
+                        <button type="button" class="btn btn-outline-danger" (click)="limpiar(forma)">Cancelar</button>
+                    </div>
+                    <div class="d-grid gap-2 mt-3">
+                        <a href="" id="openModal" style="text-decoration:none;" data-bs-toggle="modal"
+                            data-bs-target="#exampleModal">¿Olvidaste tu nombre de usuario ó contraseña?</a>
+                    </div>
+
+                    <!-- Modal -->
+                    <form #forma2="ngForm">
+                        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                            aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">¿Olvidaste tu Contraseña?</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+                                            aria-label="breadcrumb">
+                                            <ol class="breadcrumb">
+                                                ¿No tienes una cuenta?
+                                                <li class="breadcrumb-item"><a href="/accesoUsuario"> Suscribete</a>
+                                                </li>
+                                                <li class="breadcrumb-item active" aria-current="page"></li>
+                                            </ol>
+                                        </nav>
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="floatingInput10"
+                                                pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" type="email"
+                                                class="form-control" placeholder="Correo Electrónico"
+                                                [ngClass]="{'is-invalid': emailValidator.errors?.required && forma2.controls['emailValidator'].touched }"
+                                                name="emailValidator" [(ngModel)]="CorreoModel.email" required
+                                                #emailValidator="ngModel">
+                                            <label for="floatingInput">Ingresa tu correo electronico</label>
+                                            <div class="invalid-feedback" *ngIf="emailValidator.errors?.required">
+                                                <small>Es necesario ingresar un Correo Electrónico para recuperar tu
+                                                    contraseña.</small>
+                                            </div>
+                                            <div class="bad-pattern" *ngIf="emailValidator.errors?.pattern">
+                                                <small style="color: red;">El correo electrónico es inválido.</small>
+                                            </div>
+                                            <div class="text-center" *ngIf="this.spinner">
+                                                <div class="spinner-border" role="status">
+                                                    <span class="sr-only"></span>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="d-grid gap-2">
+                                            <button [disabled]="forma2.invalid" class="btn btn-outline-success"
+                                                type="button" (click)="recoveryPass()">Validar</button>
+                                        </div>
+                                    </div>
+
+                                    <div class="modal-footer">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </form>
+        </div>
+
+
+    </div>
+</div>
+
+
+
+
+
+
+
+<footer class="bg-light text-center text-lg-start">
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+        © 2021 Copyright:
+        <a class="text-dark" href="http://www.utags.edu.mx/">UNIVERSIDAD TÉCNOLOGICA DE AGUASCALIENTES/NAVYD</a>
+    </div>
+    <!-- Copyright -->
+</footer>
