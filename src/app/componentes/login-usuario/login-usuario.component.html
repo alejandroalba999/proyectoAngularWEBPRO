@@ -1,20 +1,12 @@
-<div class="card text-center">
-    <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-                <a class="nav-link " aria-current="true" href="/accesoUsuario">Registro</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link active" href="/login">Login</a>
-            </li>
-        </ul>
-    </div>
-    <div class="card-body">
+<div class="card text-center" id="cerrarModal">
+
+    <div class="card-body"
+        style="background: rgb(142,137,251);
+background: linear-gradient(0deg, rgba(142,137,251,1) 0%, rgba(176,176,247,1) 11%, rgba(236,236,255,1) 39%, rgba(255,255,255,1) 68%);">
         <!-- body -->
-        <div
-            style="padding-top: 8%; padding-right: 30%; padding-left: 30%; padding-bottom: 5%; background-color:#FF5733; ">
-            <form #forma="ngForm">
-                <div style="padding: 5%; background-color: rgba(255, 249, 247, 0.5); border-radius: 5%;">
+        <div style="padding-top: 5%; padding-right: 30%; padding-left: 30%; padding-bottom: 5%">
+            <form #forma="ngForm" autocomplete="off">
+                <div style="padding: 5%;  border-radius: 5%;" class="shadow-lg p-3 mb-5 bg-white">
                     <p class="fs-2">Login</p>
                     <!-- Correo Electronico -->
                     <div class="form-floating mb-3">
@@ -55,8 +47,15 @@
                         <button type="button" class="btn btn-outline-danger" (click)="limpiar(forma)">Cancelar</button>
                     </div>
                     <div class="d-grid gap-2 mt-3">
-                        <a href="" id="openModal" style="text-decoration:none;" data-bs-toggle="modal"
-                            data-bs-target="#exampleModal">¿Olvidaste tu nombre de usuario ó contraseña?</a>
+                        <a href="" id="openModal" style="text-decoration:none; color: rgb(64, 64, 182);"
+                            data-bs-toggle="modal" data-bs-target="#exampleModal">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    <div class="d-grid gap-2 mt-3">
+                        <a style="text-decoration:none; cursor: pointer; color: rgb(64, 64, 182);"
+                            (click)="registrar()">¿No tienes
+                            cuenta?
+
+                            Registrate!</a>
                     </div>
 
                     <!-- Modal -->
@@ -132,9 +131,9 @@
 
 <footer class="bg-light text-center text-lg-start">
     <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+    <div class="text-center p-3" style="background-color: rgb(255, 255, 255)">
         © 2021 Copyright:
-        <a class="text-dark" href="http://www.utags.edu.mx/">UNIVERSIDAD TÉCNOLOGICA DE AGUASCALIENTES/NAVYD</a>
+        <a class="text-dark" href="http://www.utags.edu.mx/">UNIVERSIDAD TÉCNOLOGICA DE AGUASCALIENTES</a>
     </div>
     <!-- Copyright -->
 </footer>

@@ -5,6 +5,7 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { RecaptchaErrorParameters } from "ng-recaptcha";
+import { Router } from '@angular/router';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -28,7 +29,7 @@ export class AccesoUsuarioComponent implements OnInit {
   spinner: Boolean = false;
   UsuarioModel: UsuarioModel = new UsuarioModel();
 
-  constructor(private _service: UserService) { }
+  constructor(private _service: UserService, private router: Router) { }
 
   ngOnInit(): void {
 
@@ -52,9 +53,7 @@ export class AccesoUsuarioComponent implements OnInit {
         icon: "success",
         title: `${this.UsuarioModel.first_name} tu cuenta se agrego con exito`,
       });
-      setTimeout(() => {
-        window.location.pathname = "/"
-      }, 2000);
+      this.router.navigateByUrl('/');
 
 
     }).catch((err: HttpErrorResponse) => {

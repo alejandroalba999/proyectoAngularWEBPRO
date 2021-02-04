@@ -7,6 +7,9 @@ import { RecoveryPassComponent } from './componentes/recovery-pass/recovery-pass
 const routes: Routes =
   [
     {
+      path: '', component: LoginUsuarioComponent, data: { breadcrumb: 'Login', },
+    },
+    {
       path: 'accesoUsuario', component: AccesoUsuarioComponent, data: { breadcrumb: 'Acceso' },
     },
     {

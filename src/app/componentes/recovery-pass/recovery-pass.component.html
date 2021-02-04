@@ -1,82 +1,119 @@
 <div class="card text-center mb-1">
-    <div class="card-header">
-        <ul class="nav nav-tabs card-header-tabs">
-            <li class="nav-item">
-                <a class="nav-link" aria-current="true" href="/accesoUsuario">Registro</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="/login">Login</a>
-            </li>
-        </ul>
-    </div>
-    <div class="card-body">
+
+    <div class="card-body"
+        style="background: rgb(142,137,251);
+background: linear-gradient(0deg, rgba(142,137,251,1) 0%, rgba(176,176,247,1) 11%, rgba(236,236,255,1) 39%, rgba(255,255,255,1) 68%);">
         <!-- body -->
-        <div
-            style="padding-top: 8%; padding-right: 30%; padding-left: 30%; padding-bottom: 5%; background-color:#FF5733; ">
+        <div style="padding-top: 8%; padding-right: 30%; padding-left: 30%; padding-bottom: 10%;">
             <form #forma="ngForm">
 
-                <div style="padding: 5%; background-color: rgba(255, 249, 247, 0.5); border-radius: 5%;">
+                <div style="padding: 5%; border-radius: 5%;" class="shadow-lg p-3 mb-5 bg-white">
                     <p class="fs-2">Recuperar Contraseña</p>
                     <!-- Correo Electronico -->
-                    <div class="row">
-                        <div class="col-6 sm-6">
-                            <div class="form-floating mb-3">
-                                <input type="text" class="form-control" id="floatingInput7" pattern="\d{6,6}"
-                                    type="number" class="form-control" placeholder="Correo Electrónico"
-                                    [ngClass]="{'is-invalid': recovery_code.errors?.required && forma.controls['recovery_code'].touched }"
-                                    name="recovery_code" [(ngModel)]="PinModel.recovery_code" required
-                                    #recovery_code="ngModel">
-                                <label for="floatingInput">Clave</label>
-                                <div class="invalid-feedback" *ngIf="recovery_code.errors?.required">
-                                    <small>Es necesario ingresar la clave.</small>
-                                </div>
-                                <div class="bad-pattern" *ngIf="recovery_code.errors?.pattern">
-                                    <small style="color: red;">La clave requiere
-                                        6 digitos.</small>
+
+
+
+                    <div *ngIf="!valido">
+                        <div class="row">
+                            <div class="col-6 sm-6">
+                                <div class="form-floating mb-3">
+                                    <input type="text" class="form-control" id="floatingInput7" pattern="\d{6,6}"
+                                        type="number" class="form-control" placeholder="Correo Electrónico"
+                                        [ngClass]="{'is-invalid': recovery_code.errors?.required && forma.controls['recovery_code'].touched }"
+                                        name="recovery_code" [(ngModel)]="PinModel.recovery_code" required
+                                        #recovery_code="ngModel">
+                                    <label for="floatingInput">Clave</label>
+                                    <div class="invalid-feedback" *ngIf="recovery_code.errors?.required">
+                                        <small>Es necesario ingresar la clave.</small>
+                                    </div>
+                                    <div class="bad-pattern" *ngIf="recovery_code.errors?.pattern">
+                                        <small style="color: red;">La clave requiere
+                                            6 digitos.</small>
+                                    </div>
                                 </div>
                             </div>
+                            <div class="col-6 sm-6">
+                                <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
+                                    aria-label="breadcrumb">
+                                    <ol class="breadcrumb">
+                                        ¿No recibiste ningun PIN?
+                                        <li class="breadcrumb-item">
+                                            <p style="color: rgb(22, 87, 226); cursor: pointer;"
+                                                (click)="ReenviarPin()">
+                                                Enviar
+                                                nuevamente</p>
+                                        </li>
+                                        <li class="breadcrumb-item active" aria-current="page"></li>
+                                    </ol>
+                                </nav>
+                            </div>
                         </div>
-                        <div class="col-6 sm-6">
-                            <nav style="--bs-breadcrumb-divider: url(&#34;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8' height='8'%3E%3Cpath d='M2.5 0L1 1.5 3.5 4 1 6.5 2.5 8l4-4-4-4z' fill='currentColor'/%3E%3C/svg%3E&#34;);"
-                                aria-label="breadcrumb">
-                                <ol class="breadcrumb">
-                                    ¿No recibiste ningun PIN?
-                                    <li class="breadcrumb-item">
-                                        <p style="color: rgb(22, 87, 226); cursor: pointer;" (click)="ReenviarPin()">
-                                            Enviar
-                                            nuevamente</p>
-                                    </li>
-                                    <li class="breadcrumb-item active" aria-current="page"></li>
-                                </ol>
-                            </nav>
-                        </div>
-                    </div>
 
 
-                    <div class="d-grid gap-2 mt-3">
-                        <button [disabled]="forma.invalid" type="button" class="btn btn-outline-primary"
-                            (click)="sendPIN()">Validar Clave</button>
+                        <div class="d-grid gap-2 mt-3">
+                            <button [disabled]="forma.invalid" type="button" class="btn btn-outline-primary"
+                                (click)="sendPIN()">Validar
+                                Clave</button>
+                        </div>
                     </div>
+                    <form #forma2="ngForm">
+
+                        <div *ngIf="valido">
+
+                            <div class="form-floating mb-3">
+                                <input pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" type="password"
+                                    class="form-control" placeholder="Contraseña"
+                                    [ngClass]="{'is-invalid': password.errors?.required && forma2.controls['password'].touched }"
+                                    name="password" [(ngModel)]="UsuarioModel.password" required #password="ngModel">
+                                <label for="floatingInput">Nueva Contraseña</label>
+                                <div class="invalid-feedback" *ngIf="password.errors?.required">
+                                    <small>Es necesario ingresar una Contraseña.</small>
+                                </div>
+                                <div class="bad-pattern" *ngIf="password.errors?.pattern">
+                                    <small style="color: red;">La contraseña es invalida</small>
+                                </div>
+                            </div>
+
+                            <div class="form-floating mb-3">
+                                <input [disabled]="password.errors?.required"
+                                    pattern="^(?=\w*\d)(?=\w*[A-Z])(?=\w*[a-z])\S{8,16}$" type="password"
+                                    class="form-control" placeholder="Contraseña"
+                                    [ngClass]="{'is-invalid': password_confirmation.errors?.required && forma2.controls['password_confirmation'].touched }"
+                                    name="password_confirmation" [(ngModel)]="UsuarioModel.password_confirmation"
+                                    required #password_confirmation="ngModel">
+                                <label for="floatingInput">Repetir Nueva Contraseña</label>
+                                <div *ngIf="UsuarioModel.password != UsuarioModel.password_confirmation">
+                                    <small style="color: red;">Las contraseñas no coinciden.</small>
+                                </div>
+                            </div>
+
+                            <div class="d-grid gap-2 mt-3">
+                                <button [disabled]="forma2.invalid" type="button" class="btn btn-outline-primary"
+                                    (click)="cambiarContrasenia()">Cambiar Contraseña</button>
+                            </div>
+
+
+                        </div>
+
+                    </form>
 
                 </div>
+
+
             </form>
+
+
+
         </div>
     </div>
-
 </div>
 
 
-
-
-
-
-
-
-<footer class="bg-light text-center text-lg-start ">
+<footer class="bg-light text-center text-lg-start">
     <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+    <div class="text-center p-3" style="background-color: rgb(255, 255, 255)">
         © 2021 Copyright:
-        <a class="text-dark" href="http://www.utags.edu.mx/">UNIVERSIDAD TÉCNOLOGICA DE AGUASCALIENTES/NAVYD</a>
+        <a class="text-dark" href="http://www.utags.edu.mx/">UNIVERSIDAD TÉCNOLOGICA DE AGUASCALIENTES</a>
     </div>
     <!-- Copyright -->
 </footer>
