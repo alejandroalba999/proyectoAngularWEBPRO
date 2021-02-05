@@ -74,5 +74,6 @@ export class LoginUsuarioComponent implements OnInit {
 
   registrar() {
     this.router.navigateByUrl('/accesoUsuario')
+    //comentario para resubir este cambio
   }
 }
