@@ -52,7 +52,7 @@ export class RecoveryPassComponent implements OnInit {
       });
     } else {
       localStorage.setItem("ReenviarPinContraseña", "true");
-      location.href = "/login";
+      this.router.navigateByUrl('/login');
     }
 
   }
@@ -109,6 +109,7 @@ export class RecoveryPassComponent implements OnInit {
           icon: 'success',
           title: 'Se ha actualizado su contraseña correctamente!'
         })
+        document.getElementById("exampleModal").click();
         this.router.navigateByUrl('/login');
       }
 

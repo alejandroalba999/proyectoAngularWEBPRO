@@ -27,6 +27,7 @@ const Toast = Swal.mixin({
 export class AccesoUsuarioComponent implements OnInit {
   captcha: Boolean = false;
   spinner: Boolean = false;
+  registro: Boolean = false;
   UsuarioModel: UsuarioModel = new UsuarioModel();
 
   constructor(private _service: UserService, private router: Router) { }
@@ -35,6 +36,7 @@ export class AccesoUsuarioComponent implements OnInit {
 
   }
   async POST() {
+    this.registro = true;
     this.spinner = true;
     this._service.getRecaptcha().then((data: any) => {
       console.log(data);
@@ -48,6 +50,7 @@ export class AccesoUsuarioComponent implements OnInit {
 
     })
     this._service.postUsuario(this.UsuarioModel).then((data: any) => {
+      this.registro = false;
       this.spinner = false;
       Swal.fire({
         icon: "success",
@@ -56,6 +59,7 @@ export class AccesoUsuarioComponent implements OnInit {
       document.getElementById("exampleModal").click();
       this.router.navigateByUrl('/');
     }).catch((err: HttpErrorResponse) => {
+      this.registro = false;
       this.spinner = false;
       console.log(err.error.info);
       Swal.fire({
