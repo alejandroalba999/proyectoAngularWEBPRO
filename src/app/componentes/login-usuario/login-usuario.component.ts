@@ -4,15 +4,16 @@ import { CorreoModel, UsuarioModel } from '../../modelos/usuario.model';
 import { HttpErrorResponse } from '@angular/common/http';
 import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
-import { Router } from '@angular/router';
 import { RecaptchaErrorParameters } from "ng-recaptcha";
+import { Router } from '@angular/router';
+
 
 
 const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
   showConfirmButton: false,
-  timer: 2000,
+  timer: 3000,
   timerProgressBar: true,
   onOpen: (toast) => {
     toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -59,19 +60,18 @@ export class LoginUsuarioComponent implements OnInit {
         localStorage.setItem("emailUser", `${this.CorreoModel.email}`);
         this.spinner = false;
         Swal.fire({
-          icon: "info",
-          title: 'Revise su correo electrónico',
+          icon: "success",
+          title: "Por favor revise su correo electronico",
         });
-        document.getElementById("exampleModal").click();
-        this.router.navigateByUrl('/recovery_password');
-
+        setTimeout(() => {
+          window.location.href = "/recovery_password";
+        }, 3000);
       }
     }).catch((err: HttpErrorResponse) => {
       console.log(err);
       this.spinner = false;
     })
   }
-
   registrar() {
     this.router.navigateByUrl('/accesoUsuario')
     //comentario para resubir este cambio
