@@ -175,8 +175,8 @@ background: linear-gradient(0deg, rgba(142,137,251,1) 0%, rgba(176,176,247,1) 11
 
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" id="button" [disabled]="!this.captcha" class="btn btn-primary"
-                                (click)="POST()">Registrar</button>
+                            <button type="button" id="button" [disabled]="!this.captcha || this.registro"
+                                class="btn btn-primary" (click)="POST()">Registrar</button>
                         </div>
                     </div>
                 </div>

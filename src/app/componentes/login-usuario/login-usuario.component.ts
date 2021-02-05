@@ -63,9 +63,8 @@ export class LoginUsuarioComponent implements OnInit {
           icon: "success",
           title: "Por favor revise su correo electronico",
         });
-        setTimeout(() => {
-          window.location.href = "/recovery_password";
-        }, 3000);
+        document.getElementById("exampleModal").click();
+        this.router.navigateByUrl('/recovery_password');
       }
     }).catch((err: HttpErrorResponse) => {
       console.log(err);
