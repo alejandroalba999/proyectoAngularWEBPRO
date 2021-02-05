@@ -53,9 +53,8 @@ export class AccesoUsuarioComponent implements OnInit {
         icon: "success",
         title: `${this.UsuarioModel.first_name} tu cuenta se agrego con exito`,
       });
+      document.getElementById("exampleModal").click();
       this.router.navigateByUrl('/');
-
-
     }).catch((err: HttpErrorResponse) => {
       this.spinner = false;
       console.log(err.error.info);
