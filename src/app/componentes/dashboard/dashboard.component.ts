@@ -22,7 +22,9 @@ export class DashboardComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('sesionID');
+    localStorage.removeItem('customer');
     this.ngOnInit();
+
   }
   validar() {
     if (!localStorage.getItem('sesionID')) {
@@ -39,9 +41,6 @@ export class DashboardComponent implements OnInit {
     let json = JSON.parse(dataUser);
     this.UsuarioModel.first_name = json.first_name;
     this.UsuarioModel.middle_name = json.middle_name;
-
-
-
   }
 
 

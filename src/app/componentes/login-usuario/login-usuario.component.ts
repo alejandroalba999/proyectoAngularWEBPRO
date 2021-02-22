@@ -112,7 +112,7 @@ export class LoginUsuarioComponent implements OnInit {
         Toast.fire({
           icon: 'info',
 
-          title: "¡Bienvenido!"
+          title: `¡Bienvenido ${res.data.customer.first_name} ${res.data.customer.middle_name} ${res.data.customer.last_name}!  `
         });
 
         this.dataCustomer = res.data.customer;
