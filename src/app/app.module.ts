@@ -10,24 +10,30 @@ import { FormsModule } from '@angular/forms';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RecoveryPassComponent } from './componentes/recovery-pass/recovery-pass.component';
 
+
+
 @NgModule({
   declarations: [
     AppComponent,
     AccesoUsuarioComponent,
     LoginUsuarioComponent,
-    RecoveryPassComponent
+    RecoveryPassComponent,
+
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    RecaptchaModule
+    RecaptchaModule,
+
   ],
   exports:
     [
       AccesoUsuarioComponent,
-      LoginUsuarioComponent
+      LoginUsuarioComponent,
+
     ],
   providers: [],
   bootstrap: [AppComponent]

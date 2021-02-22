@@ -9,12 +9,6 @@ import { Router } from '@angular/router';
 //Encrypt and Decrypt
 import * as CryptoJS from 'crypto-js';
 
-
-
-
-
-
-
 const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
@@ -37,16 +31,21 @@ export class LoginUsuarioComponent implements OnInit {
   spinner: Boolean = false;
   UsuarioModel: UsuarioModel = new UsuarioModel();
   CorreoModel: CorreoModel = new CorreoModel();
-  contraseña: string;
+  contrasenia: string;
+  correoEncrip: string;
+  contraseniaEcrip: string;
   SECRET_KEY = "llaveSecreta";
+  isChecked: Boolean = false;
+  recordarCuenta: Boolean;
+  sessionId: string;
+  dataCustomer: any;
+
   constructor(private _service: UserService, private router: Router) { }
 
   ngOnInit(): void {
-    let a = this.encrypt("este es el token ba");
-    this.decrypt(a);
 
+    this.validarCredenciales();
 
-    this.contraseña = "contraseña"
     if (localStorage.getItem("ReenviarPinContraseña") == "true") {
       document.getElementById("openModal").click();
       localStorage.removeItem("ReenviarPinContraseña");
@@ -86,25 +85,78 @@ export class LoginUsuarioComponent implements OnInit {
     this.router.navigateByUrl('/accesoUsuario')
     //comentario para resubir este cambio
   }
+
   encrypt(dataToEncrypt) {
-
     let data = CryptoJS.AES.encrypt(dataToEncrypt, this.SECRET_KEY);
-
     data = data.toString();
     console.log("Encriptado", data);
     return data;
-
-
   }
 
   decrypt(dataToDecrypt) {
     let data = CryptoJS.AES.decrypt(dataToDecrypt, this.SECRET_KEY);
-
     data = data.toString(CryptoJS.enc.Utf8);
-    console.log("token-desencriptado:", data);
-
     return data;
   }
 
+  login() {
+    this._service.login(this.UsuarioModel).then((res: any) => {
+
+      if (res.status == "error") {
+        this.spinner = false;
+        Swal.fire({
+          icon: "error",
+          title: res.error_message,
+        });
+      } else if (res.status == "success") {
+        Toast.fire({
+          icon: 'info',
+
+          title: "¡Bienvenido!"
+        });
+
+        this.dataCustomer = res.data.customer;
+        console.log(this.dataCustomer)
+        this.sessionId = res.data.session_id;
+
+        localStorage.setItem('customer', this.encrypt(JSON.stringify(this.dataCustomer)));
+        localStorage.setItem('sesionID', this.encrypt(this.sessionId));
+
+
+
+        if (this.isChecked) {
+
+          this.contraseniaEcrip = this.encrypt(this.UsuarioModel.password);
+          this.correoEncrip = this.encrypt(this.UsuarioModel.email);
+          localStorage.setItem('correo', this.correoEncrip);
+          localStorage.setItem('contraseña', this.contraseniaEcrip)
+
+        } else {
+          localStorage.removeItem('correo');
+          localStorage.removeItem('contraseña');
+        }
+        this.router.navigateByUrl('/dashboard');
+      }
+
+    }).catch((err) => {
+      console.log(err
+      )
+    })
+  }
+
+  validarCredenciales() {
+    if (localStorage.getItem('sesionID')) {
+      this.isChecked = true;
+      this.router.navigateByUrl('/dashboard')
+    }
+    if (localStorage.getItem('correo') && localStorage.getItem('contraseña')) {
+      this.isChecked = true;
+    }
+    if (this.isChecked) {
+      this.UsuarioModel.email = this.decrypt(localStorage.getItem('correo'));
+      this.UsuarioModel.password = this.decrypt(localStorage.getItem('contraseña'));
+    }
+
+  }
 
 }

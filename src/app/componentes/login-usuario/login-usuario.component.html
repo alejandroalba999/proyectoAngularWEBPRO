@@ -37,15 +37,34 @@ background: linear-gradient(0deg, rgba(142,137,251,1) 0%, rgba(176,176,247,1) 11
                             <small style="color: red;">La contraseña es invalida</small>
                         </div>
                     </div>
-
-
-
-
                     <div class="d-grid gap-2 mt-3">
+
                         <button [disabled]="forma.invalid" type="button" class="btn btn-outline-success"
-                            data-bs-toggle="modal" data-bs-target="#exampleModal">Guardar</button>
+                            (click)="login()">Iniciar
+                            sesión</button>
+
                         <button type="button" class="btn btn-outline-danger" (click)="limpiar(forma)">Cancelar</button>
                     </div>
+
+                    <div class="row mt-2">
+                        <div class="col-4">
+
+                        </div>
+                        <div class="col-4">
+                            <div class="form-check">
+                                <input class="form-check-input" name="isChecked" type="checkbox" value=""
+                                    id="flexCheckDefault" [(ngModel)]="isChecked">
+                                <label class=" form-check-label" for="flexCheckDefault">
+                                    Recordar cuenta
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-4">
+
+                        </div>
+                    </div>
+
+
                     <div class="d-grid gap-2 mt-3">
                         <a href="" id="openModal" style="text-decoration:none; color: rgb(64, 64, 182);"
                             data-bs-toggle="modal" data-bs-target="#exampleModal">¿Olvidaste tu contraseña?</a>

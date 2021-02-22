@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { UsuarioModel } from '../modelos/usuario.model';
 @Injectable({
   providedIn: 'root'
 })
@@ -28,6 +29,10 @@ export class UserService {
 
   changePassword(UsuarioModel) {
     return this.http.post(this.urlWeb + "update_password", UsuarioModel).toPromise();
+  }
+
+  login(UsuarioModel) {
+    return this.http.post(this.urlWeb + "login", UsuarioModel).toPromise();
   }
 
   //
