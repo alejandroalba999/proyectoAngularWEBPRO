@@ -109,7 +109,9 @@ export class RecoveryPassComponent implements OnInit {
           icon: 'success',
           title: 'Se ha actualizado su contraseña correctamente!'
         })
-        document.getElementById("exampleModal").click();
+        localStorage.removeItem("emailUser")
+        localStorage.removeItem("recovery_code");
+
         this.router.navigateByUrl('/login');
       }
 

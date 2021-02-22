@@ -6,6 +6,12 @@ import { NgForm } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { RecaptchaErrorParameters } from "ng-recaptcha";
 import { Router } from '@angular/router';
+//Encrypt and Decrypt
+import * as CryptoJS from 'crypto-js';
+
+
+
+
 
 
 
@@ -31,11 +37,16 @@ export class LoginUsuarioComponent implements OnInit {
   spinner: Boolean = false;
   UsuarioModel: UsuarioModel = new UsuarioModel();
   CorreoModel: CorreoModel = new CorreoModel();
-
+  contraseña: string;
+  SECRET_KEY = "llaveSecreta";
   constructor(private _service: UserService, private router: Router) { }
 
   ngOnInit(): void {
+    let a = this.encrypt("este es el token ba");
+    this.decrypt(a);
 
+
+    this.contraseña = "contraseña"
     if (localStorage.getItem("ReenviarPinContraseña") == "true") {
       document.getElementById("openModal").click();
       localStorage.removeItem("ReenviarPinContraseña");
@@ -75,4 +86,25 @@ export class LoginUsuarioComponent implements OnInit {
     this.router.navigateByUrl('/accesoUsuario')
     //comentario para resubir este cambio
   }
+  encrypt(dataToEncrypt) {
+
+    let data = CryptoJS.AES.encrypt(dataToEncrypt, this.SECRET_KEY);
+
+    data = data.toString();
+    console.log("Encriptado", data);
+    return data;
+
+
+  }
+
+  decrypt(dataToDecrypt) {
+    let data = CryptoJS.AES.decrypt(dataToDecrypt, this.SECRET_KEY);
+
+    data = data.toString(CryptoJS.enc.Utf8);
+    console.log("token-desencriptado:", data);
+
+    return data;
+  }
+
+
 }
