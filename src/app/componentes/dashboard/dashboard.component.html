@@ -30,17 +30,23 @@
                 <li class="nav-item">
                     <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
                 </li>
+
             </ul>
+
             <form class="d-flex">
-                <div class="btn btn-outline-success text-wrap">
+                <div class="btn btn btn-outline-light text-wrap p2" style="color: black;">
                     {{this.UsuarioModel.first_name}} {{this.UsuarioModel.middle_name}}
                 </div>
-                <button class="btn btn-outline-danger btn-sm" type="submit" (click)="logout()">Cerrar Sesión</button>
+            </form>
+
+
+            <form>
+                <div class="p2">
+                    <button class="btn btn-outline-danger text-wrap " type="submit" (click)="logout()">Cerrar
+                        Sesión</button>
+
+                </div>
             </form>
         </div>
     </div>
 </nav>
-
-<div>
-    <button class="btn btn-success"> Hola , me llamo dashboard</button>
-</div>
