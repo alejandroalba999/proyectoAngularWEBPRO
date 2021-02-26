@@ -7,6 +7,7 @@ import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { RecaptchaErrorParameters } from "ng-recaptcha";
 
+
 const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
@@ -29,6 +30,10 @@ export class RecoveryPassComponent implements OnInit {
   spinner: Boolean = false;
   valido: Boolean = false;
 
+  tipoPregunta = 1;
+  incremento = 1;
+  avance = "100%";
+
   PinModel: PinModel = new PinModel();
   UsuarioModel: UsuarioModel = new UsuarioModel();
   CorreoModel: CorreoModel = new CorreoModel();
@@ -36,6 +41,7 @@ export class RecoveryPassComponent implements OnInit {
   constructor(private _service: UserService, private router: Router) { }
 
   ngOnInit(): void {
+    this.pregunta();
   }
   ReenviarPin() {
     if (localStorage.getItem("emailUser")) {
@@ -123,6 +129,50 @@ export class RecoveryPassComponent implements OnInit {
       });
       console.log(err)
     })
+
+  }
+
+
+
+  pregunta() {
+    this.tipoPregunta = this.incremento++;
+    if (this.tipoPregunta > 6) {
+      this.tipoPregunta = 1;
+      this.incremento = 2;
+      console.log(this.incremento);
+
+    }
+    console.log(this.tipoPregunta);
+
+    if (this.tipoPregunta == 1) {
+      console.log("preguntaMultipleUnica");
+      this.avance = "100%";
+      setTimeout(() => {
+        this.avance = "0%";
+      }, 1000);
+
+    }
+    else if (this.tipoPregunta == 2) {
+      console.log("preguntaMultiple");
+      this.avance = "20%";
+    }
+    else if (this.tipoPregunta == 3) {
+      console.log("preguntaAbiertaCorta");
+      this.avance = "40%";
+    }
+    else if (this.tipoPregunta == 4) {
+      console.log("preguntaAbiertaLarga");
+      this.avance = "60%";
+    }
+    else if (this.tipoPregunta == 5) {
+      console.log("preguntaVerdaderoFalso");
+      this.avance = "80%";
+    }
+    else if (this.tipoPregunta == 6) {
+      console.log("subirEvidencia");
+      this.avance = "95%";
+    }
+
 
   }
 }

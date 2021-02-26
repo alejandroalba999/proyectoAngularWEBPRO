@@ -12,8 +12,11 @@ export class DashboardComponent implements OnInit {
 
 
   UsuarioModel: UsuarioModel = new UsuarioModel();
-  constructor(private router: Router) { }
+  constructor(private router: Router) {
+  }
   SECRET_KEY = "llaveSecreta";
+
+
 
   ngOnInit(): void {
     this.validar();
@@ -42,6 +45,8 @@ export class DashboardComponent implements OnInit {
     this.UsuarioModel.first_name = json.first_name;
     this.UsuarioModel.middle_name = json.middle_name;
   }
+
+
 
 
 }

@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
+import { CommonModule } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AccesoUsuarioComponent } from './componentes/acceso-usuario/acceso-usuario.component';
@@ -9,6 +9,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RecoveryPassComponent } from './componentes/recovery-pass/recovery-pass.component';
+
+
 
 
 
@@ -27,7 +29,7 @@ import { RecoveryPassComponent } from './componentes/recovery-pass/recovery-pass
     HttpClientModule,
     FormsModule,
     RecaptchaModule,
-
+    CommonModule,
   ],
   exports:
     [
