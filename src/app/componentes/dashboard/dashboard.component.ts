@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UsuarioModel } from '../../modelos/usuario.model';
+import { CategoriaService } from "../../servicios/categoria.service";
+import { ProductoService } from "../../servicios/producto.service"
 import * as CryptoJS from 'crypto-js';
 @Component({
   selector: 'app-dashboard',
@@ -12,15 +14,24 @@ export class DashboardComponent implements OnInit {
 
 
   UsuarioModel: UsuarioModel = new UsuarioModel();
-  constructor(private router: Router) {
+  constructor(private router: Router, private _categoriaService: CategoriaService, private _productoService: ProductoService) {
   }
   SECRET_KEY = "llaveSecreta";
 
+  categorias: any[] = [];
+
+  productos: any[] = [];
+
+  termino: string;
+
+  contador: number;
 
 
   ngOnInit(): void {
     this.validar();
     this.usuario();
+    this.getCategorias();
+    this.getProductos();
   }
 
   logout() {
@@ -46,7 +57,20 @@ export class DashboardComponent implements OnInit {
     this.UsuarioModel.middle_name = json.middle_name;
   }
 
+  getCategorias() {
+    this._categoriaService.getCategorias().then((data: any) => {
+      this.categorias = data.data.categories;
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
 
-
-
+  getProductos() {
+    this._productoService.getProductos().then((data: any) => {
+      this.productos = data.data.items;
+      this.contador = this.productos.length;
+    }).catch((err) => {
+      console.log(err);
+    })
+  }
 }

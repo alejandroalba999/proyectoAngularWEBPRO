@@ -9,10 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RecoveryPassComponent } from './componentes/recovery-pass/recovery-pass.component';
-
-
-
-
+import { DashboardComponent } from "./componentes/dashboard/dashboard.component";
 
 @NgModule({
   declarations: [
@@ -20,6 +17,7 @@ import { RecoveryPassComponent } from './componentes/recovery-pass/recovery-pass
     AccesoUsuarioComponent,
     LoginUsuarioComponent,
     RecoveryPassComponent,
+    DashboardComponent
 
 
   ],
@@ -29,12 +27,13 @@ import { RecoveryPassComponent } from './componentes/recovery-pass/recovery-pass
     HttpClientModule,
     FormsModule,
     RecaptchaModule,
-    CommonModule,
+    CommonModule
   ],
   exports:
     [
       AccesoUsuarioComponent,
       LoginUsuarioComponent,
+      DashboardComponent
 
     ],
   providers: [],

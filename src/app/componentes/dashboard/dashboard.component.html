@@ -10,27 +10,6 @@
                 <li class="nav-item">
                     <a class="nav-link active" aria-current="page" href="#">Home</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-
             </ul>
 
             <form class="d-flex">
@@ -38,7 +17,6 @@
                     {{this.UsuarioModel.first_name}} {{this.UsuarioModel.middle_name}}
                 </div>
             </form>
-
 
             <form>
                 <div class="p2">
@@ -50,3 +28,74 @@
         </div>
     </div>
 </nav>
+
+
+<div class="container-fluid mt-3">
+
+    <div class="row">
+        <div class="col-md-2">
+            <div class="card shadow">
+                <div class="card-body">
+                    <h5 class="card-title">Categorías</h5>
+                    <div class="form-check mt-2">
+                        <div class="mt-2" *ngFor="let categoria of categorias">
+                            <input class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                            <label class="form-check-label" for="defaultCheck1">
+                                {{categoria.description}}
+                            </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-10  amimated fadeIn">
+            <div class="card shadow">
+                <div class="card-body">
+                    <div class="row">
+
+                        <form class="form-inline">
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Buscar producto">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-primary" type="button"
+                                        (click)="getProductos()">Buscar</button>
+                                </span>
+                            </div>
+                        </form>
+
+                    </div>
+                    <hr>
+
+
+                    <div class="row">
+                        <div class="col-12">
+                            <h6 class="card-subtitle mb-2 text-muted">{{contador}} productos encontrados</h6>
+                        </div>
+                    </div>
+
+                    <div class="row mt-2">
+                        <div class="col-6 mt-2 mb-3" *ngFor="let producto of productos">
+                            <div class="card shadow" style="min-height: 265px;">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{producto.short_description}}</h5>
+
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <img src={{producto.images_small}} class="card-img-top" alt="...">
+                                        </div>
+                                        <div class="col-8">
+                                            <h6 class="card-subtitle mb-2 text-muted">${{producto.price}}</h6>
+                                            <p class="card-text">{{producto.long_description}}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
