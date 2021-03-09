@@ -6,12 +6,15 @@ import { HttpClient } from '@angular/common/http';
 })
 export class CategoriaService {
 
-    urlWeb = "http://35.167.62.109/storeutags/catalogs/categories";
+    urlWeb = "http://35.167.62.109/storeutags/catalogs";
 
     constructor(private http: HttpClient) { }
 
     getCategorias() {
-        return this.http.get(this.urlWeb).toPromise();
+        return this.http.get(this.urlWeb + "/categories").toPromise();
+    }
+    getCategoriasConcat(categorias) {
+        return this.http.get(this.urlWeb + "/items/by_category/" + categorias).toPromise();
     }
 
 }

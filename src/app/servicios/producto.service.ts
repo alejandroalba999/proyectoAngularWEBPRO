@@ -6,17 +6,18 @@ import { HttpClient } from '@angular/common/http';
 })
 export class ProductoService {
 
-    urlWeb = "http://35.167.62.109/storeutags/catalogs/items/by_text/";
+    urlWeb = "http://35.167.62.109/storeutags/catalogs/items/";
 
     constructor(private http: HttpClient) { }
 
     getProductos(termino: string) {
         if (termino == undefined) {
-            return this.http.get(this.urlWeb).toPromise();
+            return this.http.get(this.urlWeb + "by_text /").toPromise();
         } else {
-            return this.http.get(this.urlWeb + termino).toPromise();
+            return this.http.get(this.urlWeb + "by_text/" + termino).toPromise();
         }
-
     }
+
+
 
 }

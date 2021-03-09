@@ -5,6 +5,8 @@ import { CategoriaService } from "../../servicios/categoria.service";
 import { ProductoService } from "../../servicios/producto.service"
 import * as CryptoJS from 'crypto-js';
 import Swal from 'sweetalert2';
+import { stringify } from '@angular/compiler/src/util';
+import { HttpErrorResponse } from '@angular/common/http';
 
 const Toast = Swal.mixin({
   toast: true,
@@ -38,6 +40,10 @@ export class DashboardComponent implements OnInit {
   termino: string;
 
   contador: number;
+
+  array: any = []
+
+
 
   mostrarNoRegistros: boolean = true;
 
@@ -81,6 +87,7 @@ export class DashboardComponent implements OnInit {
   }
 
   getProductos() {
+
     console.log(this.termino);
     this._productoService.getProductos(this.termino).then((data: any) => {
       if (!data.data || data.data === undefined) {
@@ -89,7 +96,6 @@ export class DashboardComponent implements OnInit {
       } else {
         this.productos = [];
         this.productos = data.data.items;
-        console.log(this.productos)
         this.mostrarNoRegistros = true;
       }
 
@@ -98,10 +104,44 @@ export class DashboardComponent implements OnInit {
       } else {
         this.contador = this.productos.length;
       }
-
-      console.log(this.productos);
     }).catch((err) => {
       console.log(err);
     })
   }
+
+  async categoriass(i) {
+    this.termino = "";
+    let stringArray: String = "";
+    function removeItemFromArr(arr, item) {
+      var i = arr.indexOf(item);
+      arr.splice(i, 1);
+    }
+    var slider = <HTMLInputElement>document.getElementById('categorias' + i);
+    if (slider.checked) {
+      this.array.push(slider.value)
+      this.array.filter((v, i, a) => a.indexOf(v) === i);
+    } else if (!slider.checked) {
+      removeItemFromArr(this.array, slider.value);
+    }
+
+    this.array.forEach(element => {
+      let a = element.toString();
+      stringArray += a + ";";
+    });
+    console.log(stringArray);
+    await this._categoriaService.getCategoriasConcat(stringArray).then((res: any) => {
+      this.productos = res.data.items;
+      this.contador = this.productos.length;
+
+    }).catch((err: HttpErrorResponse) => {
+      console.log(err);
+
+    })
+
+
+  }
+
+
+
+
 }
