@@ -4,6 +4,19 @@ import { UsuarioModel } from '../../modelos/usuario.model';
 import { CategoriaService } from "../../servicios/categoria.service";
 import { ProductoService } from "../../servicios/producto.service"
 import * as CryptoJS from 'crypto-js';
+import Swal from 'sweetalert2';
+
+const Toast = Swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000,
+  timerProgressBar: true,
+  onOpen: (toast) => {
+    toast.addEventListener('mouseenter', Swal.stopTimer)
+    toast.addEventListener('mouseleave', Swal.resumeTimer)
+  }
+})
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
@@ -25,6 +38,8 @@ export class DashboardComponent implements OnInit {
   termino: string;
 
   contador: number;
+
+  mostrarNoRegistros: boolean = true;
 
 
   ngOnInit(): void {
@@ -66,9 +81,25 @@ export class DashboardComponent implements OnInit {
   }
 
   getProductos() {
-    this._productoService.getProductos().then((data: any) => {
-      this.productos = data.data.items;
-      this.contador = this.productos.length;
+    console.log(this.termino);
+    this._productoService.getProductos(this.termino).then((data: any) => {
+      if (!data.data || data.data === undefined) {
+        this.mostrarNoRegistros = false;
+        this.productos = [];
+      } else {
+        this.productos = [];
+        this.productos = data.data.items;
+        console.log(this.productos)
+        this.mostrarNoRegistros = true;
+      }
+
+      if (this.productos.length < 0 || !data.data) {
+        this.contador = 0;
+      } else {
+        this.contador = this.productos.length;
+      }
+
+      console.log(this.productos);
     }).catch((err) => {
       console.log(err);
     })

@@ -10,8 +10,13 @@ export class ProductoService {
 
     constructor(private http: HttpClient) { }
 
-    getProductos() {
-        return this.http.get(this.urlWeb).toPromise();
+    getProductos(termino: string) {
+        if (termino == undefined) {
+            return this.http.get(this.urlWeb).toPromise();
+        } else {
+            return this.http.get(this.urlWeb + termino).toPromise();
+        }
+
     }
 
 }

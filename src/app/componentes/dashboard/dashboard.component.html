@@ -54,13 +54,11 @@
                 <div class="card-body">
                     <div class="row">
 
-                        <form class="form-inline">
+                        <form>
                             <div class="input-group">
-                                <input type="text" class="form-control" placeholder="Buscar producto">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-primary" type="button"
-                                        (click)="getProductos()">Buscar</button>
-                                </span>
+                                <input type="text" class="form-control" placeholder="Buscar producto"
+                                    [(ngModel)]="termino" name="termino" (ngModelChange)="getProductos()">
+
                             </div>
                         </form>
 
@@ -74,6 +72,7 @@
                         </div>
                     </div>
 
+
                     <div class="row mt-2">
                         <div class="col-6 mt-2 mb-3" *ngFor="let producto of productos">
                             <div class="card shadow" style="min-height: 265px;">
@@ -84,14 +83,20 @@
                                         <div class="col-4">
                                             <img src={{producto.images_small}} class="card-img-top" alt="...">
                                         </div>
-                                        <div class="col-8">
-                                            <h6 class="card-subtitle mb-2 text-muted">${{producto.price}}</h6>
+                                        <div class="col-8 mt-2">
+                                            <h6 class="card-subtitle mb-2 text-muted"> Categoría: {{producto.category}}
+                                            </h6>
+                                            <h5 class="card-subtitle mb-2 text-muted mt-1">${{producto.price}}</h5>
                                             <p class="card-text">{{producto.long_description}}</p>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+
+                    <div *ngIf="!mostrarNoRegistros">
+                        <h1 style="text-align: center;">No existen productos :(</h1>
                     </div>
                 </div>
             </div>
