@@ -10,6 +10,7 @@ import { FormsModule } from '@angular/forms';
 import { RecaptchaModule } from 'ng-recaptcha';
 import { RecoveryPassComponent } from './componentes/recovery-pass/recovery-pass.component';
 import { DashboardComponent } from "./componentes/dashboard/dashboard.component";
+import { DetalleProductoComponent } from './componentes/detalle-producto/detalle-producto.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { DashboardComponent } from "./componentes/dashboard/dashboard.component"
     AccesoUsuarioComponent,
     LoginUsuarioComponent,
     RecoveryPassComponent,
-    DashboardComponent
+    DashboardComponent,
+    DetalleProductoComponent
 
 
   ],
@@ -33,7 +35,8 @@ import { DashboardComponent } from "./componentes/dashboard/dashboard.component"
     [
       AccesoUsuarioComponent,
       LoginUsuarioComponent,
-      DashboardComponent
+      DashboardComponent,
+      DetalleProductoComponent
 
     ],
   providers: [],
