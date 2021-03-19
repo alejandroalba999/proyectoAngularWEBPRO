@@ -96,8 +96,8 @@ export class DetalleProdComponent implements OnInit {
           this.carrito.session_id = '';
           this.carrito.item_id = 1;
           this.carrito.item_quantity = '';
-
-          this.router.navigateByUrl('/dashboard');
+          location.href = "/dashboard"
+          this.ngOnInit()
         }
       }).catch((err: any) => {
         console.log(err)

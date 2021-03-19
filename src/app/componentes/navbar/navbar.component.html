@@ -1,6 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">NAVAD</a>
+<nav class="navbar navbar-expand-lg" style="color: white;">
+    <div class="container-fluid" style="color: white;">
+        <a class="navbar-brand" style="color: white; font-weight: bold; font-family:cursive;" href="#">NAVAD
+            <small style="margin-left: -9px;">store</small></a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -8,34 +9,30 @@
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    <a class="nav-link active" aria-current="page" href="#" style="color: white;">Inicio</a>
                 </li>
             </ul>
 
             <form class="d-flex">
-                <div class="text-wrap p2" style="color: black;" style="margin-right: 10px;">
-                    {{this.UsuarioModel.first_name}} {{this.UsuarioModel.middle_name}}
+                <div class="text-wrap p2">
+                    <label
+                        style="color: white; font-weight: bold; margin-right: 10px; margin-top: 8px;">{{this.UsuarioModel.first_name}}
+                        {{this.UsuarioModel.middle_name}}</label>
                 </div>
             </form>
 
-            <div class="dropdown mr-2">
-                <button class="btn btn-outline-primary" type="button" data-toggle="modal" data-target="#staticBackdrop">
-                    <i class="fas fa-shopping-cart "></i><span class="sec counter counter-lg"
-                        style="font-weight: bold;">{{contadorCarrito}}</span>
-                </button>
-                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                    <a class="dropdown-item" href="#">Action</a>
-                    <a class="dropdown-item" href="#">Another action</a>
-                    <a class="dropdown-item" href="#">Something else here</a>
-                </div>
+            <div class="dropdown mr-3 ml-3" data-toggle="modal" data-target="#staticBackdrop" style="cursor: pointer; ">
+
+                <i class="fas fa-shopping-cart"></i><span class="sec counter counter-lg"
+                    style="font-weight: bold;"><small>{{contadorCarrito}}</small></span>
+
             </div>
-
-
 
 
             <form>
                 <div class="p2">
-                    <button class="btn btn-outline-danger text-wrap " type="submit" (click)="logout()">Cerrar
+                    <button class="btn btn-danger text-wrap" style="font-weight: bold;" type="submit"
+                        (click)="logout()">Cerrar
                         Sesión</button>
 
                 </div>

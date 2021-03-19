@@ -1,0 +1,5 @@
+ 
+/* cambiar el color de fondo a la barra */
+nav.navbar {
+    background-color:cornflowerblue;
+}
