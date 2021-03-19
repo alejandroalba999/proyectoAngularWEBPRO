@@ -30,9 +30,15 @@
 
 
             <form>
-                <div class="p2">
+                <div class="p2" *ngIf="iniciarBoton">
                     <button class="btn btn-danger text-wrap" style="font-weight: bold;" type="submit"
                         (click)="logout()">Cerrar
+                        Sesión</button>
+
+                </div>
+                <div class="p2" *ngIf="!iniciarBoton">
+                    <button class="btn btn-success text-wrap" style="font-weight: bold;" type="submit"
+                        (click)="iniciarSesion()">Iniciar
                         Sesión</button>
 
                 </div>

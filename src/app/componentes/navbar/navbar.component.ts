@@ -21,6 +21,7 @@ export class NavbarComponent implements OnInit {
   sessionID = {
     session_id: ''
   }
+  iniciarBoton: boolean;
 
   constructor(private router: Router, private _productoService: ProductoService) { }
 
@@ -33,7 +34,9 @@ export class NavbarComponent implements OnInit {
 
   validar() {
     if (!localStorage.getItem('sesionID')) {
-      this.router.navigateByUrl('/login')
+      this.iniciarBoton = false;
+    } else {
+      this.iniciarBoton = true;
     }
   }
   usuario() {
@@ -46,8 +49,16 @@ export class NavbarComponent implements OnInit {
   logout() {
     localStorage.removeItem('sesionID');
     localStorage.removeItem('customer');
-    this.router.navigateByUrl('/login')
+    location.href = "/";
   }
+  iniciarSesion() {
+    if (!localStorage.getItem('sesionID')) {
+      this.router.navigateByUrl('/login')
+    } else {
+      this.router.navigateByUrl('/dashboard')
+    }
+  }
+
 
   decrypt(dataToDecrypt) {
     let data = CryptoJS.AES.decrypt(dataToDecrypt, this.SECRET_KEY);

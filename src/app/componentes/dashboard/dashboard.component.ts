@@ -43,17 +43,9 @@ export class DashboardComponent implements OnInit {
   mostrarNoRegistros: boolean = true;
 
   ngOnInit(): void {
-    this.validar();
     this.getCategorias();
     this.getProductos();
   }
-
-  validar() {
-    if (!localStorage.getItem('sesionID')) {
-      this.router.navigateByUrl('/login')
-    }
-  }
-
 
   getCategorias() {
     this._categoriaService.getCategorias().then((data: any) => {
@@ -114,8 +106,6 @@ export class DashboardComponent implements OnInit {
       console.log(err);
 
     })
-
-
   }
 
 

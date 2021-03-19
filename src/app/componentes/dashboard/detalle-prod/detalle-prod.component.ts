@@ -65,49 +65,56 @@ export class DetalleProdComponent implements OnInit {
   }
 
   guardarCarrito() {
-
-    this.session_id = localStorage.getItem('sesionID');
-
-    if (this.session_id) {
-      this.sessionDecrypted = this.decrypt(this.session_id);
-
-      this.carrito.session_id = this.sessionDecrypted;
-      this.carrito.item_id = this.idProducto;
-      this.carrito.item_quantity = this.cantidad;
-
-      this._productoService.guardarCarrito(this.carrito).then((data: any) => {
-        console.log(data)
-        if (data.status == "error") {
-          this.carrito.session_id = '';
-          this.carrito.item_id = 1;
-          this.carrito.item_quantity = '';
-          Toast.fire({
-            icon: 'error',
-            title: `¡Error: ${data.error_message}!`
-          });
-        } else if (data.status == "success") {
-          console.log(this.carrito.session_id);
-
-          Toast.fire({
-            icon: 'info',
-            title: `¡Productos agregados correctamente al carrito!  `
-          });
-
-          this.carrito.session_id = '';
-          this.carrito.item_id = 1;
-          this.carrito.item_quantity = '';
-          location.href = "/dashboard"
-          this.ngOnInit()
-        }
-      }).catch((err: any) => {
-        console.log(err)
-      });
-    } else {
-      Toast.fire({
-        icon: 'error',
-        title: `No existe un session_id valido`
-      });
+    if (!localStorage.getItem('sesionID')) {
       this.router.navigateByUrl('/login');
+      localStorage.setItem('urlTemporal', `detalle-producto/${this.idProducto}`);
+    } else {
+
+      this.session_id = localStorage.getItem('sesionID');
+
+      if (this.session_id) {
+        this.sessionDecrypted = this.decrypt(this.session_id);
+
+        this.carrito.session_id = this.sessionDecrypted;
+        this.carrito.item_id = this.idProducto;
+        this.carrito.item_quantity = this.cantidad;
+
+        this._productoService.guardarCarrito(this.carrito).then((data: any) => {
+          console.log(data)
+          if (data.status == "error") {
+            this.carrito.session_id = '';
+            this.carrito.item_id = 1;
+            this.carrito.item_quantity = '';
+            Toast.fire({
+              icon: 'error',
+              title: `¡Error: ${data.error_message}!`
+            });
+          } else if (data.status == "success") {
+            console.log(this.carrito.session_id);
+
+            Toast.fire({
+              icon: 'info',
+              title: `¡Productos agregados correctamente al carrito!  `
+            });
+
+            this.carrito.session_id = '';
+            this.carrito.item_id = 1;
+            this.carrito.item_quantity = '';
+            location.href = "/dashboard"
+            this.ngOnInit()
+          }
+        }).catch((err: any) => {
+          console.log(err)
+        });
+      } else {
+        Toast.fire({
+          icon: 'error',
+          title: `No existe un session_id valido`
+        });
+        this.router.navigateByUrl('/login');
+      }
+
+
     }
 
   }
