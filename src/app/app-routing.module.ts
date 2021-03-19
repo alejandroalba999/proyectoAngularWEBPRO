@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AccesoUsuarioComponent } from './componentes/acceso-usuario/acceso-usuario.component';
 import { DashboardComponent } from './componentes/dashboard/dashboard.component';
-import { DetalleProductoComponent } from './componentes/detalle-producto/detalle-producto.component';
+import { DetalleProdComponent } from './componentes/dashboard/detalle-prod/detalle-prod.component';
 import { LoginUsuarioComponent } from './componentes/login-usuario/login-usuario.component';
 import { RecoveryPassComponent } from './componentes/recovery-pass/recovery-pass.component';
 
@@ -22,7 +22,7 @@ const routes: Routes =
     },
     { path: 'dashboard', component: DashboardComponent },
 
-    { path: 'detalle-producto', component: DetalleProductoComponent }
+    { path: 'detalle-producto/:idProducto', component: DetalleProdComponent }
   ];
 
 @NgModule({

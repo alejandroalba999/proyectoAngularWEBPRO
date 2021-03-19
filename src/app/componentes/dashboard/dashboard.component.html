@@ -1,35 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-            </ul>
-
-            <form class="d-flex">
-                <div class="btn btn btn-outline-light text-wrap p2" style="color: black;">
-                    {{this.UsuarioModel.first_name}} {{this.UsuarioModel.middle_name}}
-                </div>
-            </form>
-
-            <form>
-                <div class="p2">
-                    <button class="btn btn-outline-danger text-wrap " type="submit" (click)="logout()">Cerrar
-                        Sesión</button>
-
-                </div>
-            </form>
-        </div>
-    </div>
-</nav>
-
-
+<app-navbar></app-navbar>
 <div class="container-fluid mt-3">
 
     <div class="row">
@@ -79,23 +48,27 @@
 
                     <div class="row mt-2">
                         <div class="col-6 mt-2 mb-3" *ngFor="let producto of productos">
-                            <div class="card shadow" style="min-height: 265px;">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{producto.short_description}}</h5>
+                            <a style="text-decoration: none; color: black;" type="button"
+                                [routerLink]="['/detalle-producto', producto.product_id]">
+                                <div class="card shadow cardshadow" style="min-height: 265px;">
+                                    <div class="card-body ">
+                                        <h5 class="card-title">{{producto.short_description}}</h5>
 
-                                    <div class="row">
-                                        <div class="col-4">
-                                            <img src={{producto.images_small}} class="card-img-top" alt="...">
-                                        </div>
-                                        <div class="col-8 mt-2">
-                                            <h6 class="card-subtitle mb-2 text-muted"> Categoría: {{producto.category}}
-                                            </h6>
-                                            <h5 class="card-subtitle mb-2 text-muted mt-1">${{producto.price}}</h5>
-                                            <p class="card-text">{{producto.long_description}}</p>
+                                        <div class="row">
+                                            <div class="col-4">
+                                                <img src={{producto.images_small}} class="card-img-top" alt="...">
+                                            </div>
+                                            <div class="col-8 mt-2">
+                                                <h6 class="card-subtitle mb-2 text-muted"> Categoría:
+                                                    {{producto.category}}
+                                                </h6>
+                                                <h5 class="card-subtitle mb-2 text-muted mt-1">${{producto.price}}</h5>
+                                                <p class="card-text">{{producto.long_description}}</p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </a>
                         </div>
                     </div>
 
