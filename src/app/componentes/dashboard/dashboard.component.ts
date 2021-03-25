@@ -78,18 +78,18 @@ export class DashboardComponent implements OnInit {
     this.UsuarioModel.middle_name = json.middle_name;
   }
 
-  getCategorias() {
-    this._categoriaService.getCategorias().then((data: any) => {
+  async getCategorias() {
+    await this._categoriaService.getCategorias().then((data: any) => {
       this.categorias = data.data.categories;
     }).catch((err) => {
       console.log(err);
     })
   }
 
-  getProductos() {
+  async getProductos() {
 
     console.log(this.termino);
-    this._productoService.getProductos(this.termino).then((data: any) => {
+    await this._productoService.getProductos(this.termino).then((data: any) => {
       if (!data.data || data.data === undefined) {
         this.mostrarNoRegistros = false;
         this.productos = [];
