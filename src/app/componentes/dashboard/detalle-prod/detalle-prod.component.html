@@ -1,0 +1,69 @@
+<app-navbar></app-navbar>
+
+<div class=" container-fluid" *ngIf="producto">
+    <div class="row">
+        <div class="col-md-1 p-0">
+            <div class="card-body" *ngFor="let foto of producto.images_gallery">
+                <div class="card shadow">
+
+                    <div class="text-center">
+                        <img src={{foto.image}} class="rounded img-fluid" alt="...">
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 p-0">
+            <div class="card-body">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <img src={{producto.images_large}} class="rounded img-fluid" alt="...">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5 p-0">
+            <div class="card-body">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h5 class="card-title text-center">{{producto.short_description}}</h5>
+                        <p>
+                            {{producto.long_description}}
+                        </p>
+                        <hr>
+                        <h6 class="mb-3">Descripción detallada</h6>
+                        <div [innerHTML]="htmlStr">
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2 p-0">
+            <div class="card-body">
+                <div class="card shadow">
+                    <div class="card-body">
+                        <h4 class="text-center">${{producto.price}}</h4>
+                        <div class="input-group input-group-sm mb-3">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="inputGroup-sizing-sm">Cantidad</span>
+                            </div>
+                            <input type="number" class="form-control" aria-label="Sizing example input"
+                                [(ngModel)]="cantidad" aria-describedby="inputGroup-sizing-sm">
+                        </div>
+                        <div class="d-grid gap-2 mt-3">
+
+                            <button type="button" class="btn btn-primary" (click)="guardarCarrito()"
+                                [disabled]='this.cantidad < 1'>Agregar al
+                                carrito</button>
+
+                            <button type="button" class="btn btn-success">Comprar ahora</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

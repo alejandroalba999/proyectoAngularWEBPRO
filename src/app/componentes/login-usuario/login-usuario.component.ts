@@ -135,7 +135,13 @@ export class LoginUsuarioComponent implements OnInit {
           localStorage.removeItem('correo');
           localStorage.removeItem('contraseña');
         }
-        this.router.navigateByUrl('/dashboard');
+        if (localStorage.getItem('urlTemporal')) {
+          console.log(localStorage.getItem('urlTemporal'));
+          this.router.navigateByUrl(localStorage.getItem('urlTemporal'));
+          localStorage.removeItem('urlTemporal');
+        } else {
+          this.router.navigateByUrl('');
+        }
       }
 
     }).catch((err) => {

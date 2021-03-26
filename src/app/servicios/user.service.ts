@@ -35,6 +35,10 @@ export class UserService {
     return this.http.post(this.urlWeb + "login", UsuarioModel).toPromise();
   }
 
+  sessionValidate(sessionID) {
+    return this.http.post(this.urlWeb + "ping", sessionID).toPromise();
+  }
+
   //
 
 }

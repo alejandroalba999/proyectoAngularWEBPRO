@@ -1,0 +1,160 @@
+<nav class="navbar navbar-expand-lg" style="color: white;">
+    <div class="container-fluid" style="color: white;">
+        <a class="navbar-brand" style="color: white; font-weight: bold; font-family:cursive;" href="#">NAVAD
+            <small style="margin-left: -9px;">store</small></a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <i style="color: white;" class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="#" style="color: white;">Inicio</a>
+                </li>
+            </ul>
+
+            <form class="d-flex">
+                <div class="text-wrap p2">
+                    <label
+                        style="color: white; font-weight: bold; margin-right: 10px; margin-top: 8px;">{{this.UsuarioModel.first_name}}
+                        {{this.UsuarioModel.middle_name}}</label>
+                </div>
+            </form>
+
+            <button class="btn btn-primary ml-2 mr-2" style="cursor: pointer; " (click)="validarSesion()">
+                <i class="fas fa-shopping-cart"></i><span class="sec counter counter-lg"
+                    style="font-weight: bold;"><small>{{contadorCarrito}}</small></span>
+            </button>
+            <button id="btn-disabled" data-toggle="modal" data-target="#staticBackdrop" style="display:none"></button>
+
+
+            <form>
+                <div class="p2" *ngIf="iniciarBoton">
+                    <button class="btn btn-danger text-wrap" style="font-weight: bold;" type="submit"
+                        (click)="logout()">Cerrar
+                        Sesión</button>
+
+                </div>
+                <div class="p2" *ngIf="!iniciarBoton">
+                    <button class="btn btn-success text-wrap" style="font-weight: bold;" type="submit"
+                        (click)="iniciarSesion()">Iniciar
+                        Sesión</button>
+
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+</nav>
+
+
+<div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1"
+    aria-labelledby="staticBackdropLabel" aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="col-4">
+                    <h5 class="modal-title" id="staticBackdropLabel">Carrito de compras</h5>
+                </div>
+                <div class="col-4"></div>
+                <div class="col-2 mr-0 p-0" style="text-align: center;">
+                    <label>Subtotal: <strong>${{this.subTotalPrice}}</strong></label>
+                </div>
+                <div class="col-2 mr-0 p-0" style="text-align: center;">
+                    <label>Total: <strong>${{this.totalPrice}}</strong></label>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+
+            </div>
+            <div class="modal-body">
+                <div class="col-12 mt-1" *ngFor="let producto of this.items; let i = index;">
+                    <div class="card shadow cardshadow" style="min-height: 265px;">
+                        <div class="card-body" style="margin-bottom: 0%; padding-bottom: 0%;">
+                            <div class="row">
+                                <div class="col-2">
+                                    <div>
+                                        <img src={{producto.images_small}}
+                                            style="max-width:100%;width:auto;height:auto;" class="card-img-top"
+                                            alt="...">
+                                    </div>
+                                </div>
+                                <div class="col-10 mt-1">
+                                    <div class="row">
+                                        <div class="col-6">
+                                            <h7 class="card-title"><strong>{{producto.short_description}}</strong>
+                                            </h7>
+                                            <p class="card-text" style="margin-top: 5%;">{{producto.long_description}}
+                                            </p>
+                                        </div>
+                                        <div class="col-2" style="text-align: center;">
+                                            <p><strong>P.Unitario</strong></p>
+                                            <h5 class="card-subtitle mb-2 text-muted mt-1">
+                                                ${{producto.price}}</h5>
+                                        </div>
+                                        <div class="col-2">
+                                            <p style="text-align: center;"><strong>Cantidad</strong></p>
+                                            <input type="number" min="1" value="{{producto.quantity}}"
+                                                class="form-control" id="exampleInputEmail{{i}}"
+                                                aria-describedby="emailHelp">
+                                        </div>
+                                        <div class="col-2" style="text-align: center;">
+                                            <p><strong>SubTotal</strong></p>
+                                            <h5 class="card-subtitle mb-2 text-muted mt-1">
+                                                ${{producto.sub_total}}</h5>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-10">
+
+                                    </div>
+                                    <div class="col-1">
+                                        <button class="btn btn-outline-danger btn-block"
+                                            (click)="remove(producto.short_description, producto.product_id)"><i
+                                                class="fas fa-times"></i></button>
+                                    </div>
+
+                                    <div class="col-1">
+                                        <!-- <i id="remove" style="color: red; cursor: pointer;"
+                                            class="far fa-times-circle"></i> -->
+
+                                        <button class="btn btn-outline-success btn-block"
+                                            (click)="this.actualizar(i,producto.product_id,producto.short_description )"><i
+                                                class="fas fa-pen-alt"></i></button>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <div class="row">
+                    <div class="row" style="text-align: center;">
+                        <div class="col-6">
+
+                        </div>
+                        <div class="col-6">
+
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6 mr-0">
+                            <button class="btn btn-outline-danger btn-block">Cancelar todo</button>
+                        </div>
+                        <div class="col-6 mr-0">
+                            <button type="button" class="btn btn-outline-warning btn-block">Proceder al pago</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
