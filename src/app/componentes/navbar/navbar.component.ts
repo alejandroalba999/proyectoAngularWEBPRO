@@ -28,6 +28,7 @@ export class NavbarComponent implements OnInit {
   SECRET_KEY = "llaveSecreta";
 
   items: any = [];
+  taxes: Number;
   totalPrice: Number = 0;
   subTotalPrice: Number = 0;
   session_id: any;
@@ -96,6 +97,7 @@ export class NavbarComponent implements OnInit {
         this.contadorCarrito = data.data.items_quantity
         this.items = data.data.items;
         this.totalPrice = data.data.total;
+        this.taxes = data.data.taxes;
         this.subTotalPrice = data.data.sub_total;
         if (this.items == undefined) {
           location.href = "/dashboard"
@@ -125,10 +127,12 @@ export class NavbarComponent implements OnInit {
 
 
         if (data.data) {
+          console.log(data.data);
 
           this.contadorCarrito = data.data.items_quantity
           this.items = data.data.items;
           this.totalPrice = data.data.total;
+          this.taxes = data.data.taxes;
           this.subTotalPrice = data.data.sub_total;
         }
       }).catch((err: any) => {
