@@ -14,6 +14,8 @@ export class ProductoService {
 
     urlCartRemove = "http://35.167.62.109/storeutags/cart/remove_item"
 
+    urlCartRemoveAll = "http://35.167.62.109/storeutags/cart/remove_all"
+
 
 
 
@@ -43,6 +45,9 @@ export class ProductoService {
     }
     eliminarProductoById(body) {
         return this.http.request('delete', this.urlCartRemove, { body }).toPromise();
+    }
+    eliminarTodoById(body) {
+        return this.http.request('delete', this.urlCartRemoveAll, { body }).toPromise();
     }
 
 

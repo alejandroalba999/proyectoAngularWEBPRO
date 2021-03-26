@@ -80,7 +80,31 @@ export class NavbarComponent implements OnInit {
     data = data.toString(CryptoJS.enc.Utf8);
     return data;
   }
-
+  async obtenerCarritoClick() {
+    await this._productoService.obtenerCarrito(this.sessionID).then((data: any) => {
+      if (data.error_code) {
+        if (data.error_code == "SessionExpired" || data.error_code == "SessionInvalidForThisBrowserIP") {
+          Toast.fire({
+            icon: 'error',
+            title: `Tu sesión a expirado`
+          });
+          localStorage.removeItem('sesionID');
+          location.href = "/login";
+        }
+      }
+      if (data.data) {
+        this.contadorCarrito = data.data.items_quantity
+        this.items = data.data.items;
+        this.totalPrice = data.data.total;
+        this.subTotalPrice = data.data.sub_total;
+        if (this.items == undefined) {
+          location.href = "/dashboard"
+        }
+      }
+    }).catch((err: any) => {
+      console.log(err)
+    })
+  }
   async obtenerCarrito() {
     this.session_id = localStorage.getItem('sesionID');
 
@@ -88,8 +112,6 @@ export class NavbarComponent implements OnInit {
       this.sessionDecrypted = this.decrypt(this.session_id);
       this.sessionID.session_id = this.sessionDecrypted;
       await this._productoService.obtenerCarrito(this.sessionID).then((data: any) => {
-        console.log(data);
-
         if (data.error_code) {
           if (data.error_code == "SessionExpired" || data.error_code == "SessionInvalidForThisBrowserIP") {
             Toast.fire({
@@ -103,6 +125,7 @@ export class NavbarComponent implements OnInit {
 
 
         if (data.data) {
+
           this.contadorCarrito = data.data.items_quantity
           this.items = data.data.items;
           this.totalPrice = data.data.total;
@@ -148,7 +171,7 @@ export class NavbarComponent implements OnInit {
               'Se a eliminado el producto exitosamente',
               'success'
             )
-            this.obtenerCarrito();
+            this.obtenerCarritoClick();
           }
 
 
@@ -165,8 +188,6 @@ export class NavbarComponent implements OnInit {
 
     var slider = <HTMLInputElement>document.getElementById('exampleInputEmail' + i);
     if (slider) {
-      console.log(parseInt(slider.value));
-
       if (parseInt(slider.value) < 1 || slider.value == "") {
         Swal.fire({
           icon: 'error',
@@ -210,7 +231,7 @@ export class NavbarComponent implements OnInit {
                   'Se realizo la actualización exitosamente',
                   'success'
                 )
-                this.obtenerCarrito();
+                this.obtenerCarritoClick();
               }
 
             }).catch((err) => {
@@ -230,14 +251,65 @@ export class NavbarComponent implements OnInit {
       location.href = '/login';
       localStorage.setItem('blnModalCarrito', "true");
     } else {
-      document.getElementById("btn-disabled").click();
+      if (this.items != undefined) {
+        document.getElementById("btn-disabled").click();
+      }
+
     }
+
   }
   validarModal() {
-    console.log(localStorage.getItem('blnModalCarrito'))
     if (localStorage.getItem('blnModalCarrito') == "true") {
-      document.getElementById("btn-disabled").click();
+      if (this.items.length > 0) {
+        console.log(this.items.length);
+
+        document.getElementById("btn-disabled").click();
+      }
       localStorage.removeItem('blnModalCarrito')
     }
+  }
+  eliminarTodo() {
+    Swal.fire({
+      title: '¿Estas seguro de querer eliminar todos  los  producto del carrito?',
+
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Confirmar',
+      reverseButtons: true
+    }).then((res) => {
+      if (res.isConfirmed) {
+        let body = { "session_id": this.sessionID.session_id }
+        this._productoService.eliminarTodoById(body).then((res: any) => {
+          if (res.error_code) {
+            if (res.error_code == "SessionExpired" || res.error_code == "SessionInvalidForThisBrowserIP") {
+              Toast.fire({
+                icon: 'error',
+                title: `Tu sesión a expirado`
+              });
+              localStorage.removeItem('sesionID');
+              location.href = "/login";
+            }
+          }
+          if (res.status == "success") {
+            Swal.fire(
+              'Productos eliminados!',
+              'Se eliminaron los productos exitosamente',
+              'success'
+            )
+            location.href = "/dashboard"
+          }
+
+          console.log(res.status);
+
+        }).catch((err) => {
+          console.log(err);
+
+        })
+      }
+    })
+
   }
 }
