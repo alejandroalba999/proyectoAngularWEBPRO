@@ -6,6 +6,8 @@ import { ProductoService } from "../../servicios/producto.service"
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Button } from 'selenium-webdriver';
+import { ICreateOrderRequest, IPayPalConfig } from "ngx-paypal";
+
 const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
@@ -29,8 +31,8 @@ export class NavbarComponent implements OnInit {
 
   items: any = [];
   taxes: Number;
-  totalPrice: Number = 0;
-  subTotalPrice: Number = 0;
+  totalPrice: String = '0';
+  subTotalPrice: String = '0';
   session_id: any;
   sessionDecrypted: any;
   contadorCarrito: any = 0;
@@ -38,6 +40,13 @@ export class NavbarComponent implements OnInit {
     session_id: ''
   }
   iniciarBoton: boolean;
+
+  compraExitosa: Boolean = false;
+
+  mostrarPago: Boolean = false;
+
+  datosCompra: any;
+  public payPalConfig?: IPayPalConfig;
 
   constructor(private router: Router, private _productoService: ProductoService) { }
 
@@ -254,14 +263,16 @@ export class NavbarComponent implements OnInit {
     if (this.sessionID.session_id == '') {
       location.href = '/login';
       localStorage.setItem('blnModalCarrito', "true");
+
     } else {
       if (this.items != undefined) {
         document.getElementById("btn-disabled").click();
       }
 
     }
-
+    this.mostrarPago = false;
   }
+
   validarModal() {
     if (localStorage.getItem('blnModalCarrito') == "true") {
       if (this.items.length > 0) {
@@ -271,6 +282,7 @@ export class NavbarComponent implements OnInit {
       }
       localStorage.removeItem('blnModalCarrito')
     }
+    this.mostrarPago = false;
   }
   eliminarTodo() {
     Swal.fire({
@@ -316,4 +328,102 @@ export class NavbarComponent implements OnInit {
     })
 
   }
+
+  regresar() {
+    this.mostrarPago = false;
+  }
+
+  cerrarModal() {
+    this.mostrarPago = false;
+  }
+
+  procederPago() {
+    this.mostrarPago = true;
+    this.initConfig();
+  }
+
+  private initConfig(): void {
+    this.payPalConfig = {
+      currency: 'MXN',
+      clientId: 'Adt8PG7veb1bas7VKF9tjadhw430t-LfRj96vXehx9a0W8lKGe5r4mR2lM9knIcaL7miRvkyZGSIIQ3V',
+      createOrderOnClient: (data) => <ICreateOrderRequest>{
+        intent: 'CAPTURE',
+        purchase_units: [
+          {
+            amount: {
+              currency_code: 'MXN',
+              value: this.totalPrice,
+              breakdown: {
+                item_total: {
+                  currency_code: 'MXN',
+                  value: this.totalPrice
+                }
+              }
+            },
+            items: [
+              {
+                name: 'Servicio',
+                quantity: '1',
+                unit_amount: {
+                  currency_code: 'MXN',
+                  value: this.totalPrice,
+                },
+              }
+            ]
+          }
+        ]
+      },
+      advanced: {
+        commit: 'true'
+      },
+      style: {
+        label: 'paypal',
+        layout: 'vertical'
+      },
+
+      onClientAuthorization: (data) => {
+        console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
+
+        let json = {
+          session_id: this.sessionDecrypted,
+          paypal_payment_details: data
+        }
+        this._productoService.registrarCompra(json).then((res: any) => {
+
+          if (res.status == "error") {
+            Toast.fire({
+              icon: 'error',
+              title: `¡Error: ${res.error_message}!`
+            });
+          }
+          if (res.status == "success") {
+            Swal.fire(
+              '¡Gracias por tu compra!',
+              'En breve te enviaremos un correo con los detalles de tu compra e instrucciones para la activación de tus productos o servicios.',
+              'success'
+            )
+            this.datosCompra = res.original_request.paypal_payment_details;
+            console.log(this.datosCompra)
+            this.compraExitosa = true;
+            this.mostrarPago = false;
+          }
+
+        }).catch((err: any) => {
+          console.log(err)
+        })
+
+      },
+      onCancel: (data, actions) => {
+        console.log('OnCancel', data, actions);
+      },
+      onError: err => {
+        console.log('OnError', err);
+      },
+      onClick: (data, actions) => {
+        console.log('onClick', data, actions);
+      },
+    };
+  }
+
+
 }

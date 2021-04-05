@@ -12,6 +12,7 @@ import { RecoveryPassComponent } from './componentes/recovery-pass/recovery-pass
 import { DashboardComponent } from "./componentes/dashboard/dashboard.component";
 import { DetalleProdComponent } from './componentes/dashboard/detalle-prod/detalle-prod.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
+import { NgxPayPalModule } from 'ngx-paypal';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
     NavbarComponent
 
 
+
   ],
   imports: [
     BrowserModule,
@@ -31,7 +33,8 @@ import { NavbarComponent } from './componentes/navbar/navbar.component';
     HttpClientModule,
     FormsModule,
     RecaptchaModule,
-    CommonModule
+    CommonModule,
+    NgxPayPalModule
   ],
   exports:
     [

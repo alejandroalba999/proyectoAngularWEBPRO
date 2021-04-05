@@ -53,7 +53,7 @@
     aria-labelledby="staticBackdropLabel" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
-            <div class="modal-header">
+            <div class="modal-header" *ngIf="!mostrarPago && !compraExitosa">
                 <div class="col-4">
                     <h5 class="modal-title" id="staticBackdropLabel">Carrito de compras</h5>
                 </div>
@@ -73,9 +73,33 @@
 
 
             </div>
+
+            <div class="modal-header" *ngIf="mostrarPago">
+                <div class="col-10">
+                    <h5 class="modal-title" id="staticBackdropLabel">Resumen de tu pedido</h5>
+                </div>
+                <div class="col-2 mr-0 p-0" style="text-align: center;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+
+            <div class="modal-header" *ngIf="compraExitosa">
+                <div class="col-10">
+                    <h5 class="modal-title" id="staticBackdropLabel">¡Completado!</h5>
+                </div>
+                <div class="col-2 mr-0 p-0" style="text-align: center;">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </div>
+
             <div class="modal-body">
                 <div class="col-12 mt-1" *ngFor="let producto of this.items; let i = index;">
-                    <div class="card shadow cardshadow" style="min-height: 265px;">
+                    <div class="card shadow cardshadow" style="min-height: 265px;"
+                        *ngIf="!mostrarPago && !compraExitosa">
                         <div class="card-body" style="margin-bottom: 0%; padding-bottom: 0%;">
                             <div class="row">
                                 <div class="col-2">
@@ -134,12 +158,48 @@
                             </div>
                         </div>
                     </div>
+                </div>
 
+                <div class="row" *ngIf="mostrarPago">
+                    <h5>Productos</h5>
+                    <div class="col-4 text-left">
+                        <div *ngFor="let product of this.items; let i = index;">
+                            <label>{{product.quantity}} x {{product.short_description}}</label>
+                        </div>
+                    </div>
+
+                    <div class="col-4 text-center">
+
+                        <label>Subtotal: <strong>${{this.subTotalPrice}}</strong></label>
+                        <br>
+                        <label>IVA: <strong>${{this.taxes}}</strong></label>
+                        <br>
+                        <label>Total: <strong>${{this.totalPrice}}</strong></label>
+
+                    </div>
+                    <div class="col-4">
+                        <ngx-paypal [config]="payPalConfig"></ngx-paypal>
+                    </div>
+                </div>
+
+
+                <div class="row text-center" *ngIf="compraExitosa">
+                    <div class="col-12">
+                        <h4>¡Gracias por tu compra</h4>
+                        <br>
+                        <p>En breve te enviaremos un correo con los detalles de tu compra e instrucciones para la
+                            activación de tus productos y/o servicios.</p>
+                        <label><strong>Fecha y hora de pago:</strong></label>{{datosCompra.create_time |
+                        date:'medium'}}<br>
+                        <label><strong>No. de Pedido:</strong> {{datosCompra.id}}</label><br>
+                        <label><strong>Monto de pago:</strong>
+                            {{datosCompra.purchase_units[0].amount.value}}</label><br>
+                    </div>
                 </div>
 
             </div>
             <div class="modal-footer">
-                <div class="row">
+                <div class="row" *ngIf="!mostrarPago && !compraExitosa">
                     <div class="row" style="text-align: center;">
                         <div class="col-6">
 
@@ -154,8 +214,19 @@
                                 todo</button>
                         </div>
                         <div class="col-6 mr-0">
-                            <button type="button" class="btn btn-outline-warning btn-block">Proceder al pago</button>
+                            <button type="button" class="btn btn-outline-warning btn-block"
+                                (click)="procederPago()">Proceder al pago</button>
                         </div>
+                    </div>
+                </div>
+
+                <div class="row" *ngIf="mostrarPago  && !compraExitosa">
+                    <div class="row" style="text-align: center;">
+
+                        <div class="mr-5">
+                            <button class="btn btn-outline-danger" (click)="regresar()">Regresar</button>
+                        </div>
+
                     </div>
                 </div>
             </div>

@@ -16,8 +16,7 @@ export class ProductoService {
 
     urlCartRemoveAll = "http://35.167.62.109/storeutags/cart/remove_all"
 
-
-
+    urlOrden = "http://35.167.62.109/storeutags/order/"
 
     constructor(private http: HttpClient) { }
 
@@ -48,6 +47,10 @@ export class ProductoService {
     }
     eliminarTodoById(body) {
         return this.http.request('delete', this.urlCartRemoveAll, { body }).toPromise();
+    }
+
+    registrarCompra(body: any) {
+        return this.http.request('post', this.urlOrden + "create", { body }).toPromise();
     }
 
 
