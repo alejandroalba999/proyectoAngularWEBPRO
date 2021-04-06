@@ -1,0 +1,62 @@
+<app-navbar></app-navbar>
+
+<div class="container-fluid mt-3">
+
+    <div class="row">
+        <div class="col-1">
+
+        </div>
+        <div class="col-10">
+
+            <h5>Historial de pedidos | {{ordenesContados}} pedidos encontrados</h5>
+
+
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Fecha de compra</th>
+                        <th scope="col" class="text-center">Total</th>
+                        <th scope="col" class="text-center">Estatus</th>
+                        <th scope="col" class="text-center">Pedido</th>
+                        <th scope="col" class="text-center">Comentarios</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let orden of ordenes">
+                        <td>{{orden.date_order | date:'medium'}}</td>
+                        <td class="text-center">{{orden.total}}</td>
+                        <td class="text-center">{{orden.status}}</td>
+                        <td class="text-center">{{orden.paypal_order_id}}</td>
+                        <td class="text-center">{{orden.comments}}</td>
+                        <td class="text-center">
+                            <div>
+                                <button type="button" class="btn btn-success btn-sm" data-toggle="dropdown">Ver
+                                    detalle</button>
+                            </div>
+                        </td>
+
+                    </tr>
+                </tbody>
+
+                <tbody *ngIf="!ordenes || ordenes === undefined || ordenes.length===0">
+                    <tr>
+                        <td colspan="14">
+                            <div class="alert-dismissible text-center" style="padding: .75rem 1.25rem;">
+                                <i class="fa fa-frown-o fa-2x" aria-hidden="true"></i>
+                                <h5 style="height: 100%;width: 100%;">¡NO HAY ORDENES PARA MOSTRAR!</h5>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+        <div class="col-1">
+        </div>
+
+    </div>
+
+
+
+</div>
