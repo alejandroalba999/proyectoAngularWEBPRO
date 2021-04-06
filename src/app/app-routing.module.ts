@@ -4,6 +4,7 @@ import { AccesoUsuarioComponent } from './componentes/acceso-usuario/acceso-usua
 import { DashboardComponent } from './componentes/dashboard/dashboard.component';
 import { DetalleProdComponent } from './componentes/dashboard/detalle-prod/detalle-prod.component';
 import { LoginUsuarioComponent } from './componentes/login-usuario/login-usuario.component';
+import { PedidosComponent } from './componentes/pedidos/pedidos.component';
 import { RecoveryPassComponent } from './componentes/recovery-pass/recovery-pass.component';
 
 const routes: Routes =
@@ -22,7 +23,9 @@ const routes: Routes =
     },
     { path: 'dashboard', component: DashboardComponent },
 
-    { path: 'detalle-producto/:idProducto', component: DetalleProdComponent }
+    { path: 'detalle-producto/:idProducto', component: DetalleProdComponent },
+
+    { path: 'pedidos', component: PedidosComponent }
   ];
 
 @NgModule({

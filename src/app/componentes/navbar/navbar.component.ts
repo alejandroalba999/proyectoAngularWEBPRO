@@ -81,7 +81,7 @@ export class NavbarComponent implements OnInit {
     if (!localStorage.getItem('sesionID')) {
       this.router.navigateByUrl('/login')
     } else {
-      this.router.navigateByUrl('/dashboard')
+      this.router.navigateByUrl('/dashboard');
     }
   }
 
@@ -271,6 +271,9 @@ export class NavbarComponent implements OnInit {
 
     }
     this.mostrarPago = false;
+    this.datosCompra = '';
+    this.compraExitosa = false;
+
   }
 
   validarModal() {
@@ -283,6 +286,8 @@ export class NavbarComponent implements OnInit {
       localStorage.removeItem('blnModalCarrito')
     }
     this.mostrarPago = false;
+    this.datosCompra = '';
+    this.compraExitosa = false;
   }
   eliminarTodo() {
     Swal.fire({
@@ -397,15 +402,11 @@ export class NavbarComponent implements OnInit {
             });
           }
           if (res.status == "success") {
-            Swal.fire(
-              '¡Gracias por tu compra!',
-              'En breve te enviaremos un correo con los detalles de tu compra e instrucciones para la activación de tus productos o servicios.',
-              'success'
-            )
+
             this.datosCompra = res.original_request.paypal_payment_details;
-            console.log(this.datosCompra)
             this.compraExitosa = true;
             this.mostrarPago = false;
+            this.obtenerCarrito();
           }
 
         }).catch((err: any) => {
@@ -423,6 +424,14 @@ export class NavbarComponent implements OnInit {
         console.log('onClick', data, actions);
       },
     };
+  }
+
+  seguirComprando() {
+    location.href = "/dashboard"
+
+  }
+  misPedidos() {
+    location.href = "/pedidos"
   }
 
 

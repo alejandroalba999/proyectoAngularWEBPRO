@@ -53,5 +53,9 @@ export class ProductoService {
         return this.http.request('post', this.urlOrden + "create", { body }).toPromise();
     }
 
+    obtenerOrdenes(sessionID) {
+        return this.http.post(this.urlOrden + "get_orders", sessionID).toPromise();
+    }
+
 
 }

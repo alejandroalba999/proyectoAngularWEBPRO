@@ -55,6 +55,11 @@ export class DashboardComponent implements OnInit {
     })
   }
 
+  limpiar() {
+    this.termino = '';
+    this.getProductos();
+  }
+
   getProductos() {
     this._productoService.getProductos(this.termino).then((data: any) => {
       if (!data.data || data.data === undefined) {

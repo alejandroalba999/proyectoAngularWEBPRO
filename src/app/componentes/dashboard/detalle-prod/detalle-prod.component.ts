@@ -8,7 +8,7 @@ const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
   showConfirmButton: false,
-  timer: 3000,
+  timer: 750,
   timerProgressBar: true,
   onOpen: (toast) => {
     toast.addEventListener('mouseenter', Swal.stopTimer)
@@ -100,7 +100,10 @@ export class DetalleProdComponent implements OnInit {
             this.carrito.session_id = '';
             this.carrito.item_id = 1;
             this.carrito.item_quantity = '';
-            location.href = "/dashboard"
+
+            setTimeout(function () {
+              location.href = "/dashboard"
+            }, 750);
             this.ngOnInit()
           }
         }).catch((err: any) => {

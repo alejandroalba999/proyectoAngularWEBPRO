@@ -13,6 +13,7 @@ import { DashboardComponent } from "./componentes/dashboard/dashboard.component"
 import { DetalleProdComponent } from './componentes/dashboard/detalle-prod/detalle-prod.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { PedidosComponent } from './componentes/pedidos/pedidos.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { NgxPayPalModule } from 'ngx-paypal';
     RecoveryPassComponent,
     DashboardComponent,
     DetalleProdComponent,
-    NavbarComponent
+    NavbarComponent,
+    PedidosComponent
 
 
 
@@ -42,7 +44,8 @@ import { NgxPayPalModule } from 'ngx-paypal';
       LoginUsuarioComponent,
       DashboardComponent,
       DetalleProdComponent,
-      NavbarComponent
+      NavbarComponent,
+      PedidosComponent
 
     ],
   providers: [],
