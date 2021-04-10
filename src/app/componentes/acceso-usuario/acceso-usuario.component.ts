@@ -57,7 +57,7 @@ export class AccesoUsuarioComponent implements OnInit {
         title: `${this.UsuarioModel.first_name} tu cuenta se agrego con exito`,
       });
       document.getElementById("exampleModal").click();
-      this.router.navigateByUrl('/');
+      this.router.navigateByUrl('/login');
     }).catch((err: HttpErrorResponse) => {
       this.registro = false;
       this.spinner = false;

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { CategoriaService } from "../../servicios/categoria.service";
 import { ProductoService } from "../../servicios/producto.service"
 import Swal from 'sweetalert2';
@@ -26,7 +26,8 @@ export class DashboardComponent implements OnInit {
 
 
 
-  constructor(private router: Router, private _categoriaService: CategoriaService, private _productoService: ProductoService) {
+  constructor(private router: Router, private _categoriaService: CategoriaService, private _productoService: ProductoService, activatedRouter: ActivatedRoute) {
+    this.termino = activatedRouter.snapshot.params.termino;
   }
 
 
@@ -43,9 +44,11 @@ export class DashboardComponent implements OnInit {
   mostrarNoRegistros: boolean = true;
 
   ngOnInit(): void {
+    console.log(this.termino)
     this.getCategorias();
     this.getProductos();
   }
+
 
   getCategorias() {
     this._categoriaService.getCategorias().then((data: any) => {

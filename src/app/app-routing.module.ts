@@ -23,6 +23,8 @@ const routes: Routes =
     },
     { path: 'dashboard', component: DashboardComponent },
 
+    { path: 'dashboard/:termino', component: DashboardComponent },
+
     { path: 'detalle-producto/:idProducto', component: DetalleProdComponent },
 
     { path: 'pedidos', component: PedidosComponent }

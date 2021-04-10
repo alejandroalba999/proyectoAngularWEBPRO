@@ -21,7 +21,7 @@ export class ProductoService {
     constructor(private http: HttpClient) { }
 
     getProductos(termino: string) {
-        if (termino == undefined) {
+        if (termino == undefined || termino == '') {
             return this.http.get(this.urlWeb + "by_text /").toPromise();
         } else {
             return this.http.get(this.urlWeb + "by_text/" + termino).toPromise();

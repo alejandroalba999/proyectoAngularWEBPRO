@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { UsuarioModel } from '../../modelos/usuario.model';
 import * as CryptoJS from 'crypto-js';
-import { Router } from '@angular/router';
 import { ProductoService } from "../../servicios/producto.service"
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -28,6 +28,7 @@ export class NavbarComponent implements OnInit {
   UsuarioModel: UsuarioModel = new UsuarioModel();
 
   SECRET_KEY = "llaveSecreta";
+  termino: any;
 
   items: any = [];
   taxes: Number;
@@ -48,13 +49,25 @@ export class NavbarComponent implements OnInit {
   datosCompra: any;
   public payPalConfig?: IPayPalConfig;
 
-  constructor(private router: Router, private _productoService: ProductoService) { }
+  constructor(private router: Router, private _productoService: ProductoService, activatedRouter: ActivatedRoute) {
+    this.termino = activatedRouter.snapshot.params.termino;
+  }
 
   ngOnInit(): void {
     this.validarModal();
     this.usuario();
     this.validar();
     this.obtenerCarrito();
+  }
+
+  buscar() {
+
+    if (this.termino === undefined || this.termino == '') {
+      location.replace(`/dashboard`);
+    } else if (this.termino.length > 0) {
+      location.replace(`/dashboard/${this.termino}`);
+    }
+
   }
 
 
@@ -333,6 +346,8 @@ export class NavbarComponent implements OnInit {
     })
 
   }
+
+
 
   regresar() {
     this.mostrarPago = false;
