@@ -5,6 +5,7 @@ import { ProductoService } from "../../servicios/producto.service"
 import Swal from 'sweetalert2';
 import { HttpErrorResponse } from '@angular/common/http';
 
+
 const Toast = Swal.mixin({
   toast: true,
   position: 'top-end',
@@ -30,6 +31,7 @@ export class DashboardComponent implements OnInit {
     this.termino = activatedRouter.snapshot.params.termino;
   }
 
+  pageActual: number = 0;
 
   categorias: any[] = [];
 
@@ -49,7 +51,9 @@ export class DashboardComponent implements OnInit {
     this.getProductos();
   }
 
-
+  paginaActual(event) {
+    this.pageActual = event;
+  }
   getCategorias() {
     this._categoriaService.getCategorias().then((data: any) => {
       this.categorias = data.data.categories;

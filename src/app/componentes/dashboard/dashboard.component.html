@@ -34,7 +34,8 @@
 
 
                     <div class="row mt-2">
-                        <div class="col-6 mt-2 mb-3" *ngFor="let producto of productos">
+                        <div class="col-6 mt-2 mb-3"
+                            *ngFor="let producto of productos | paginate: { itemsPerPage: 4, currentPage: this.pageActual}">
                             <a style="text-decoration: none; color: black;" type="button"
                                 [routerLink]="['/detalle-producto', producto.product_id]">
                                 <div class="card shadow cardshadow" style="min-height: 265px;">
@@ -56,6 +57,12 @@
                                     </div>
                                 </div>
                             </a>
+                        </div>
+                        <div style="text-align: center;">
+                            <pagination-controls class="paginateA" (pageChange)="this.pageActual= $event"
+                                responsive="true" responsive="true" (pageChange)="paginaActual($event)"
+                                previousLabel="Atras" nextLabel="Siguiente">
+                            </pagination-controls>
                         </div>
                     </div>
 

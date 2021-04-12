@@ -13,6 +13,7 @@ import { DashboardComponent } from "./componentes/dashboard/dashboard.component"
 import { DetalleProdComponent } from './componentes/dashboard/detalle-prod/detalle-prod.component';
 import { NavbarComponent } from './componentes/navbar/navbar.component';
 import { NgxPayPalModule } from 'ngx-paypal';
+import { NgxPaginationModule } from 'ngx-pagination'; // <-- import the module
 import { PedidosComponent } from './componentes/pedidos/pedidos.component';
 
 @NgModule({
@@ -27,7 +28,6 @@ import { PedidosComponent } from './componentes/pedidos/pedidos.component';
     PedidosComponent
 
 
-
   ],
   imports: [
     BrowserModule,
@@ -36,7 +36,8 @@ import { PedidosComponent } from './componentes/pedidos/pedidos.component';
     FormsModule,
     RecaptchaModule,
     CommonModule,
-    NgxPayPalModule
+    NgxPayPalModule,
+    NgxPaginationModule
   ],
   exports:
     [
@@ -45,7 +46,8 @@ import { PedidosComponent } from './componentes/pedidos/pedidos.component';
       DashboardComponent,
       DetalleProdComponent,
       NavbarComponent,
-      PedidosComponent
+      PedidosComponent,
+      NgxPaginationModule
 
     ],
   providers: [],
