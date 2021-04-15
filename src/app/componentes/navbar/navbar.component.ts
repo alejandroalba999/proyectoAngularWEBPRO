@@ -37,6 +37,7 @@ export class NavbarComponent implements OnInit {
   session_id: any;
   sessionDecrypted: any;
   contadorCarrito: any = 0;
+  cargando: Boolean = false;
   sessionID = {
     session_id: ''
   }
@@ -363,10 +364,13 @@ export class NavbarComponent implements OnInit {
   }
 
   private initConfig(): void {
+
     this.payPalConfig = {
       currency: 'MXN',
       clientId: 'Adt8PG7veb1bas7VKF9tjadhw430t-LfRj96vXehx9a0W8lKGe5r4mR2lM9knIcaL7miRvkyZGSIIQ3V',
+
       createOrderOnClient: (data) => <ICreateOrderRequest>{
+
         intent: 'CAPTURE',
         purchase_units: [
           {
@@ -402,6 +406,7 @@ export class NavbarComponent implements OnInit {
       },
 
       onClientAuthorization: (data) => {
+        this.cargando = true;
         console.log('onClientAuthorization - you should probably inform your server about completed transaction at this point', data);
 
         let json = {
@@ -415,11 +420,15 @@ export class NavbarComponent implements OnInit {
               icon: 'error',
               title: `¡Error: ${res.error_message}!`
             });
+            this.cargando = false;
           }
           if (res.status == "success") {
 
             this.datosCompra = res.original_request.paypal_payment_details;
             this.compraExitosa = true;
+            if (this.compraExitosa = true) {
+              this.cargando = false;
+            }
             this.mostrarPago = false;
             this.obtenerCarrito();
           }
